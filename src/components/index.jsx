@@ -1,11 +1,10 @@
 // Component lien quan toi Nhap vao tren Master
 export { default as FieldEditCombobox } from "./FieldEditCombobox";
 export { default as FieldEditMultiSelect } from "./FieldEditMultiSelect";
-export { default as FieldEditAutoCompleteSearch } from "./FieldEditAutoCompleteSearch";
+export { default as FieldEditComboboxSearch } from "./FieldEditComboboxSearch";
 export { default as FieldEditDropdown } from "./FieldEditDropdown";
 export { default as FieldEditNumberic } from "./FieldEditNumberic";
 export { default as FieldEditInput } from "./FieldEditInput";
-export { default as FieldEditInputSearch } from "./FieldEditInputSearch";
 export { default as FieldEditMaskText } from "./FieldEditMaskText";
 export { default as FieldEditDatePicker } from "./FieldEditDatePicker";
 export { default as FieldEditAmnt } from "./FieldEditAmnt";

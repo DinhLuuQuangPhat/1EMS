@@ -24,6 +24,7 @@ import {
   FieldEditInput,
   FieldEditDatePicker,
   FieldEditCombobox,
+  FieldEditComboboxSearch,
   FieldEditDropdown,
   FieldEditTextArea,
   FieldEditNumberic,

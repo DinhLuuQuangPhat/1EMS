@@ -33,7 +33,7 @@ import {
   ActionHeader,
   TitleHeader,
   FieldEditDatePicker,
-  FieldEditCombobox,
+  FieldEditComboboxSearch,
   FieldEditDropdown,
   FieldEditInput,
   FieldEditNumberic,
@@ -42,7 +42,6 @@ import {
   FieldEditTextArea,
   DialogSystem,
   DialogDelete,
-  FieldEditInputSearch,
 } from "../";
 
 import { TabStrip, TabStripTab } from "@progress/kendo-react-layout";
@@ -794,12 +793,31 @@ const AdvanceProposalEditMain = (props) => {
                       />
                     </div>
                     {/* Doi tuong nhan */}
-                    <FieldEditInputSearch
-                      id="MAINCODE"
-                      name="MAINCODE"
-                      title={getLabelValue(null, "Đối tượng nhận")}
-                      value={header?.MAINCODE}
-                      defaultValue={header?.MAINCODE}
+                    <FieldEditComboboxSearch
+                      title={getLabelValue(143, "Đối tượng nhận")}
+                      id={"OBJCCODE"}
+                      data={lstAccObjcCode}
+                      defaultValue={
+                        header !== undefined &&
+                          header.OBJCCODE !== null &&
+                          header.OBJCCODE !== ""
+                          ? lstAccObjcCode.find(
+                            (item) => item.ITEMCODE === header.OBJCCODE
+                          )
+                          : null
+                      }
+                      value={
+                        header !== undefined && header.OBJCCODE !== null
+                          ? lstAccObjcCode.find(
+                            (item) => item.ITEMCODE === header.OBJCCODE
+                          )
+                          : null
+                      }
+                      textField="ITEMSRCH"
+                      dataItemKey="ITEMCODE"
+                      onChange={ObjcCodeChgeHandler}
+                      filterable={true}
+                      disabled={!permissions || loadingAccObjcList}
                     />
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
@@ -898,18 +916,7 @@ const AdvanceProposalEditMain = (props) => {
                       value={DptmName}
                     />
                     {/* Nhan vien lap phieu */}
-                    {/* Doi tuong nhan */}
-                    <FieldEditInputSearch
-                      id="MAINCODE"
-                      name="MAINCODE"
-                      title={getLabelValue(null, "Đối tượng nhận")}
-                      data={lstEmployee}
-                      textField="ITEMNAME"
-                      dataItemKey="ITEMCODE"
-                      value={header?.MAINCODE}
-                      defaultValue={header?.MAINCODE}
-                    />
-                    {/* <FieldEditDropdown
+                    <FieldEditComboboxSearch
                       title={getLabelValue(149, "Nhân viên lập phiếu")}
                       id={"EMPLCODE"}
                       data={lstEmployee}
@@ -931,7 +938,7 @@ const AdvanceProposalEditMain = (props) => {
                         setDptmName(getDptmName(event.value.ITEMCODE));
                       }}
                       disabled={!permissions}
-                    /> */}
+                    />
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     {/* Du an */}
