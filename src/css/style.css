@@ -1,0 +1,214 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+
+/* Additional styles */
+@import "additional-styles/utility-patterns.css";
+@import "additional-styles/range-slider.css";
+@import "additional-styles/toggle-switch.css";
+@import "additional-styles/flatpickr.css";
+@import "additional-styles/theme.css";
+
+@import "tailwindcss/utilities";
+
+body {
+  font-family: "Arial", sans-serif;
+  font-size: 16px;
+}
+
+/* Grid */
+.k-grid thead tr:first-child {
+  text-align: center;
+  color: #ffffff;
+  font-weight: 500;
+  background-color: #019676;
+}
+.k-grid thead tr:first-child .k-cell-inner {
+  justify-content: center;
+}
+.k-grid tbody > tr:not(.k-detail-row):hover {
+  background-color: #eb7a06;
+}
+.k-grid tbody tr td a.MainCode {
+  font-weight: 600;
+  color: #0d987a;
+}
+.k-grid tbody tr td a.MainCode:hover {
+  text-decoration: underline;
+  color: #f97316;
+}
+.k-grid th,
+.k-grid td {
+  padding: 4px 7px !important;
+}
+.gridlist-master tbody tr td:last-child {
+  overflow: visible;
+}
+.gridlist-master .viewDcmnGridList {
+  z-index: 9999;
+}
+thead tr.k-table-row:not(.k-detail-row):hover {
+  background-color: #f97316 !important;
+}
+thead tr.k-table-row.k-detail-row:hover {
+  background: none !important;
+}
+
+/* TabStrip */
+.k-tabstrip-items-wrapper .k-item {
+  color: #424242 !important;
+}
+.k-tabstrip-items-wrapper .k-item.k-active {
+  color: #f97316 !important;
+}
+.full-width-ems .k-animation-container {
+  display: block;
+}
+.content-center-ems .k-tabstrip .k-animation-container-relative {
+  display: block !important;
+}
+
+
+
+/* Checkbox */
+.k-checkbox:checked,
+.k-checkbox.k-checked {
+  border-color: #ff6358 !important;
+  background-color: #ff6358 !important;
+}
+
+/* Dialog */
+.k-window-actions {
+  margin: 0 0 !important;
+}
+
+#sidebar .space-y-8 button:hover > span {
+  border-color: #ff9f3e;
+}
+
+/* Chinh Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #6a6a6a;
+  border: 1px solid #6a6a6a;
+  border-radius: 10px 10px 10px 10px;
+  margin: 0px auto;
+}
+
+.edit-detail {
+  background-color: #f97316 !important;
+}
+
+/* Numberic */
+.none-spinner .k-input-spinner {
+  display: none !important;
+}
+.numberic-right input,
+.numberic-right {
+  text-align: right !important;
+}
+
+/* ListBox */
+.w-full.k-listbox {
+  width: 100% !important;
+}
+
+/* MultiSelect */
+.k-multiselect.nonewrap .k-chip-list {
+  flex-wrap: nowrap !important;
+}
+.k-multiselect.nonewrap .k-input-values {
+  overflow: hidden;
+}
+
+/* Input */
+input.k-input {
+  padding: 2px 8px !important;
+}
+
+/* Popup Quy trinh phe duyet */
+.actionReviewProcess,
+.actionApprovalProcess {
+  top: 30px;
+  left: 5px;
+  right: auto;
+  bottom: auto;
+  z-index: 999;
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1px solid #d3d3d3;
+  box-shadow: 2px 2px 15px 0px #cbcbcb;
+}
+.actionReviewProcess .content,
+.actionApprovalProcess .content {
+  text-wrap: nowrap;
+  margin-left: 0;
+}
+
+.actionReviewProcess2 .content,
+.actionApprovalProcess2 .content {
+  /* text-wrap: nowrap; */
+  margin-left: 0;
+  border-radius: 5px;
+  border: 1px solid #e1e1e1;
+  box-shadow: 2px 2px 15px 0px #d1d1d1;
+}
+
+/* Button Header Component */
+.btnHeader {
+  color: #fff !important;
+}
+.btnHeader:hover {
+  border: 1px solid #646464 !important;
+}
+
+.addButton {
+  background-color: #009adf !important;
+}
+.addButton:hover {
+  background-color: #0072a5 !important;
+}
+.dupButton {
+  background-color: #f19c0b !important;
+}
+.dupButton:hover {
+  background-color: #c37b00 !important;
+}
+.saveButton {
+  background-color: #1dcda7 !important;
+}
+.saveButton:hover {
+  background-color: #0d987a !important;
+}
+.deleteButton {
+  background-color: #f57070 !important;
+}
+.deleteButton:hover {
+  background-color: #f12626 !important;
+}
+.lockButton {
+  background-color: #f77216 !important;
+}
+.lockButton:hover {
+  background-color: #dd5a00 !important;
+}
+
+
+.poup-bg::after {
+  content: "";
+  display: block;
+  background: #000;
+  opacity: 0.4;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 999;
+}
+
+.k-treeview .k-treeview-item .k-treeview-leaf.k-focus {
+  background: #019676;
+  color: #ffffff;
+}

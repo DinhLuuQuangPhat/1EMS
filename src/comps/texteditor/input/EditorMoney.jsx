@@ -1,0 +1,50 @@
+import styled from "styled-components";
+import {NumericTextBox} from "@progress/kendo-react-inputs";
+import React, {useMemo} from "react";
+import {useTextEditorContext} from "../context/TextEditorProvider";
+import {useStateContext} from "../../../context/ContextProvider";
+
+export default function EditorMoney(props) {
+  const {values} = useTextEditorContext();
+
+  const value = useMemo(() => {
+    const _value = values[props.name];
+    return _value ? _value.toString().replace(/\d(?=(?:\d{3})+$)/g, '$&,') : "";
+  }, [values, props.name]);
+
+  return (
+    <EditorMoneyStyle className={'editor-review-comp input-money'}>
+      {value}
+    </EditorMoneyStyle>
+  )
+}
+
+export function EditorMoneyCompose(props) {
+  const {appColors} = useStateContext();
+  const {values, onChange} = useTextEditorContext();
+
+  return (
+    <ComposeStyle>
+      <NumericTextBox
+        placeholder={props.placeholder}
+        name={props.name}
+        value={values[props.name]}
+        onChange={(e) => onChange(props.name, e.target.value)}
+
+        style={{borderColor: "grey", textAlign: "right"}}
+        type="number"
+        className={`border-[#808080] border-[1px] numberic-right ${appColors.inputColor}`}
+      />
+    </ComposeStyle>
+  )
+}
+
+const ComposeStyle = styled.div`
+ display: inline-flex;
+`;
+
+
+
+const EditorMoneyStyle = styled.span`
+ 
+`;
