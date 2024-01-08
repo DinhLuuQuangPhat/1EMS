@@ -50,11 +50,11 @@ module.exports = {
         // lg: "1200px",
         // xl: "1700px",
 
-        xs: "480px",
+        xs: "481px",
         sm: "600px",
         smd: "768px",
         md: "920px",
-        lg: "1024px",
+        lg: "1025px",
         xl: "1920px",
       },
       borderWidth: {

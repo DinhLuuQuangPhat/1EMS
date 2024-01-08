@@ -68,6 +68,10 @@ thead tr.k-table-row.k-detail-row:hover {
 }
 
 
+/* Input */
+input.k-input {
+  padding: 2px 8px !important;
+}
 
 /* Checkbox */
 .k-checkbox:checked,

@@ -243,8 +243,8 @@ const SpendSuggestEditMain = (props) => {
   const [permitSrchAdvn, setPermitSrchAdvn] = useState(false);
   useEffect(() => {
     header.DCMNSBCD === "003" ||
-      header.DCMNSBCD === "004" ||
-      header.DCMNSBCD === "005"
+    header.DCMNSBCD === "004" ||
+    header.DCMNSBCD === "005"
       ? setPermitSrchAdvn(true)
       : setPermitSrchAdvn(false);
   }, [header.DCMNSBCD]);
@@ -457,7 +457,7 @@ const SpendSuggestEditMain = (props) => {
       const file = e.target.files[i];
       const fileType = file.name
         .split(".")
-      [file.name.split(".").length - 1].toLowerCase();
+        [file.name.split(".").length - 1].toLowerCase();
 
       const icon = getFileIcon(fileType);
       setFiles((dcmnFiles) => [
@@ -550,7 +550,7 @@ const SpendSuggestEditMain = (props) => {
     }
     fetch(baseUrl + apiUrl.postFile.value, requestOptions)
       .then((response) => response.text())
-      .then((result) => { })
+      .then((result) => {})
       .catch((error) => console.log("error", error));
   };
 
@@ -796,9 +796,9 @@ const SpendSuggestEditMain = (props) => {
               className="Tab-flex"
             >
               <TabStripTab title={getLabelValue(116, "Thông tin chung")}>
-                <div className="grid  gap-2">
-                  <div className="grid grid-cols-1 md:grid-cols-12 gap-2">
-                    <div className="md:col-span-2">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="w-full">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-3">
                       {/* So chung tu */}
                       <FieldEditMaskText
                         title={getLabelValue(117, "Số chứng từ")}
@@ -809,8 +809,7 @@ const SpendSuggestEditMain = (props) => {
                         defaultValue={header?.MAINCODE}
                         disabled={true}
                       />
-                    </div>
-                    <div className="md:col-span-2">
+
                       {/* Ngay chung tu */}
                       <FieldEditDatePicker
                         title={getLabelValue(118, "Ngày chứng từ")}
@@ -826,39 +825,9 @@ const SpendSuggestEditMain = (props) => {
                         }}
                       />
                     </div>
-                    <div className="md:col-span-5">
-                      <FieldEditDropdown
-                        title={getLabelValue(173, "Chi nhánh")}
-                        id="LCTNCODE"
-                        name="LCTNCODE"
-                        style={{ borderColor: "grey" }}
-                        value={
-                          lstLocation &&
-                            lstLocation.length > 0 &&
-                            header?.LCTNCODE !== "" &&
-                            header?.LCTNCODE !== null
-                            ? lstLocation.find(
-                              (item) => item.ITEMCODE === header?.LCTNCODE
-                            )
-                            : "null"
-                        }
-                        defaultValue={
-                          lstLocation &&
-                            lstLocation.length > 0 &&
-                            header?.LCTNCODE !== "" &&
-                            header?.LCTNCODE !== null
-                            ? lstLocation.find(
-                              (item) => item.ITEMCODE === header?.LCTNCODE
-                            )
-                            : "null"
-                        }
-                        disabled={true}
-                        data={lstLocation}
-                        textField="ITEMNAME"
-                        dataItemKey="ITEMCODE"
-                      />
-                    </div>
-                    <div className="md:col-span-3">
+
+                    {/* Loai de nghi */}
+                    <div className="mb-3">
                       <FieldEditCombobox
                         title={getLabelValue(200, "Loại đề nghị")}
                         id={"DCMNSBCD"}
@@ -866,15 +835,15 @@ const SpendSuggestEditMain = (props) => {
                         defaultValue={
                           header !== undefined
                             ? lstDcmn_Sub.find(
-                              (item) => item.ITEMCODE === header?.DCMNSBCD
-                            )
+                                (item) => item.ITEMCODE === header?.DCMNSBCD
+                              )
                             : {}
                         }
                         value={
                           header !== undefined
                             ? lstDcmn_Sub.find(
-                              (item) => item.ITEMCODE === header?.DCMNSBCD
-                            )
+                                (item) => item.ITEMCODE === header?.DCMNSBCD
+                              )
                             : {}
                         }
                         textField="ITEMNAME"
@@ -931,10 +900,58 @@ const SpendSuggestEditMain = (props) => {
                         disabled={!permissions}
                       />
                     </div>
+
+                    {/* Loai chi tieu */}
+                    <div className="mb-3">
+                      <FieldEditCombobox
+                        title={getLabelValue(202, "Loại chi tiêu")}
+                        id={"SCTNCODE"}
+                        data={lstmngSubDcmnSCTNC}
+                        defaultValue={
+                          header !== undefined
+                            ? lstmngSubDcmnSCTNC.find(
+                                (item) => item.ITEMCODE === header?.SCTNCODE
+                              )
+                            : {}
+                        }
+                        value={
+                          header !== undefined
+                            ? lstmngSubDcmnSCTNC.find(
+                                (item) => item.ITEMCODE === header?.SCTNCODE
+                              )
+                            : {}
+                        }
+                        textField="ITEMNAME"
+                        dataItemKey="ITEMCODE"
+                        onChange={(e) => {
+                          setHeader({
+                            ...header,
+                            SCTNCODE: e.target.value.ITEMCODE,
+                          });
+                        }}
+                        disabled={!permissions}
+                      />
+                    </div>
+
+                    {/* Lý do đề nghị */}
+                    <div className="mb-3">
+                      <FieldEditTextArea
+                        title={getLabelValue(199, "Lý do đề nghị")}
+                        id="MEXLNNTE"
+                        name="MEXLNNTE"
+                        rows={2}
+                        value={header.MEXLNNTE}
+                        disabled={!permissions}
+                        onChange={(e) => {
+                          setHeader({
+                            ...header,
+                            MEXLNNTE: e.target.value,
+                          });
+                        }}
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-2">
-                  <div className="md:col-span-2">
+                  <div className="w-full">
                     {/* Loại đối tượng */}
                     <div className="mb-3">
                       <FieldEditDropdown
@@ -944,17 +961,17 @@ const SpendSuggestEditMain = (props) => {
                         defaultValue={
                           header.OBJCTYPE !== ""
                             ? lstObjcType.find(
-                              (item) =>
-                                parseInt(item.ITEMCODE) === header.OBJCTYPE
-                            )
+                                (item) =>
+                                  parseInt(item.ITEMCODE) === header.OBJCTYPE
+                              )
                             : {}
                         }
                         value={
                           header.OBJCTYPE !== ""
                             ? lstObjcType.find(
-                              (item) =>
-                                parseInt(item.ITEMCODE) === header.OBJCTYPE
-                            )
+                                (item) =>
+                                  parseInt(item.ITEMCODE) === header.OBJCTYPE
+                              )
                             : {}
                         }
                         textField="ITEMNAME"
@@ -986,8 +1003,7 @@ const SpendSuggestEditMain = (props) => {
                         disabled={!permissions}
                       />
                     </div>
-                  </div>
-                  <div className="md:col-span-4">
+
                     {/* Đối tượng */}
                     <div className="mb-3">
                       <FieldEditCombobox
@@ -996,22 +1012,22 @@ const SpendSuggestEditMain = (props) => {
                         data={listObjectCode}
                         defaultValue={
                           listObjectCode &&
-                            listObjectCode.length > 0 &&
-                            header?.OBJCCODE !== "" &&
-                            header?.OBJCCODE !== null
+                          listObjectCode.length > 0 &&
+                          header?.OBJCCODE !== "" &&
+                          header?.OBJCCODE !== null
                             ? listObjectCode?.find(
-                              (item) => item.ITEMCODE === header?.OBJCCODE
-                            )
+                                (item) => item.ITEMCODE === header?.OBJCCODE
+                              )
                             : "null"
                         }
                         value={
                           listObjectCode &&
-                            listObjectCode.length > 0 &&
-                            header?.OBJCCODE !== "" &&
-                            header?.OBJCCODE !== null
+                          listObjectCode.length > 0 &&
+                          header?.OBJCCODE !== "" &&
+                          header?.OBJCCODE !== null
                             ? listObjectCode.find(
-                              (item) => item.ITEMCODE === header?.OBJCCODE
-                            )
+                                (item) => item.ITEMCODE === header?.OBJCCODE
+                              )
                             : "null"
                         }
                         textField="ITEMNAME"
@@ -1035,52 +1051,231 @@ const SpendSuggestEditMain = (props) => {
                         filterable={true}
                       />
                     </div>
+
+                    {/* Don vi Tien te & Ty gia & NV de nghi */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-3">
+                      {/* Don vi tien te & Ty gia */}
+                      <div className="w-full">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-0">
+                          {/* Don vi tien te */}
+                          <FieldEditDropdown
+                            title={getLabelValue(87, "ĐV Tiền tệ")}
+                            id={"CUOMCODE"}
+                            data={lstCUOM}
+                            defaultValue={
+                              header !== undefined
+                                ? lstCUOM.find(
+                                    (item) => item.ITEMCODE === header?.CUOMCODE
+                                  )
+                                : {}
+                            }
+                            value={
+                              header !== undefined
+                                ? lstCUOM.find(
+                                    (item) => item.ITEMCODE === header?.CUOMCODE
+                                  )
+                                : {}
+                            }
+                            style={{ width: "100%" }}
+                            textField="ITEMNAME"
+                            dataItemKey="ITEMCODE"
+                            onChange={(e) => {
+                              setHeader({
+                                ...header,
+                                CUOMCODE: e.value.ITEMCODE,
+                              });
+                            }}
+                            disabled={!permissions}
+                          />
+
+                          {/* Ty gia */}
+                          <FieldEditNumberic
+                            title={getLabelValue(88, "Tỷ giá")}
+                            id={"CUOMRATE"}
+                            defaultValue={header?.CUOMRATE}
+                            value={header?.CUOMRATE ? header?.CUOMRATE : 1}
+                            onChange={(e) => {
+                              setHeader({
+                                ...header,
+                                CUOMRATE: e.value,
+                              });
+                            }}
+                            // format="n4"
+                            disabled={!permissions}
+                          />
+                        </div>
+                      </div>
+
+                      {/* NV de nghi */}
+                      <div className="mb-3">
+                        <FieldEditCombobox
+                          title={getLabelValue(203, "NV đề nghị")}
+                          id={"OBJCCODE"}
+                          data={lstEmployee}
+                          defaultValue={
+                            header?.EMPLCODE !== "" && header?.EMPLCODE !== null
+                              ? lstEmployee.find(
+                                  (item) => item.ITEMCODE === header?.EMPLCODE
+                                )
+                              : "null"
+                          }
+                          value={
+                            header?.EMPLCODE !== "" && header?.EMPLCODE !== null
+                              ? lstEmployee.find(
+                                  (item) => item.ITEMCODE === header?.EMPLCODE
+                                )
+                              : "null"
+                          }
+                          textField="ITEMNAME"
+                          dataItemKey="ITEMCODE"
+                          onChange={(e) => {
+                            if (e.target.value !== null) {
+                              setHeader({
+                                ...header,
+                                EMPLCODE: e.target.value.ITEMCODE,
+                              });
+                            }
+                          }}
+                          disabled={!permissions}
+                        />
+                      </div>
+                    </div>
                   </div>
-                  <div className="md:col-span-3">
-                    {/* Bo phan */}
-                    <FieldEditMaskText
-                      title={getLabelValue(150, "Bộ phận")}
-                      id={""}
-                      value={""}
-                    />
-                  </div>
-                  <div className="md:col-span-3">
-                    <FieldEditCombobox
-                      title={getLabelValue(203, "Nhân viên lập phiếu")}
-                      id={"OBJCCODE"}
-                      data={lstEmployee}
-                      defaultValue={
-                        header?.EMPLCODE !== "" && header?.EMPLCODE !== null
-                          ? lstEmployee.find(
-                            (item) => item.ITEMCODE === header?.EMPLCODE
-                          )
-                          : "null"
-                      }
-                      value={
-                        header?.EMPLCODE !== "" && header?.EMPLCODE !== null
-                          ? lstEmployee.find(
-                            (item) => item.ITEMCODE === header?.EMPLCODE
-                          )
-                          : "null"
-                      }
-                      textField="ITEMNAME"
-                      dataItemKey="ITEMCODE"
-                      onChange={(e) => {
-                        if (e.target.value !== null) {
+                  <div className="w-full">
+                    {/* Phieu tam ung & Ngay tam ung */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-3">
+                      {/* Phieu tam ung */}
+                      <FieldEditInput
+                        title={getLabelValue(141, "Phiếu Đề nghị tạm ứng")}
+                        id="ADVNCODE"
+                        name="ADVNCODE"
+                        style={{ borderColor: "grey" }}
+                        value={header?.ADVNCODE}
+                        defaultValue={header?.ADVNCODE}
+                        disabled={!permissions || !permitSrchAdvn}
+                        onDoubleClick={DoubleSrchHandler}
+                        readOnly={true}
+                      />
+
+                      {/* Ngay tam ung */}
+                      <FieldEditDatePicker
+                        title={getLabelValue(212, "Ngày tạm ứng")}
+                        id="ADVNDATE"
+                        name="ADVNDATE"
+                        format="dd/MM/yyyy"
+                        defaultValue={new Date(header?.ADVNDATE)}
+                        value={new Date(header?.ADVNDATE)}
+                        disabled={true}
+                      />
+                    </div>
+
+                    {/* So tien tam ung & So tien de nghi */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-3">
+                      {/* Tien tam ung */}
+                      <FieldEditNumberic
+                        title={getLabelValue(146, "Tiền tạm ứng")}
+                        disabled={true}
+                        name="RCPTCRAM"
+                        id="RCPTCRAM"
+                        value={header?.RCPTCRAM}
+                        defaultValue={header?.RCPTCRAM}
+                      />
+
+                      {/* So tien de nghi */}
+                      <FieldEditNumberic
+                        title={getLabelValue(213, "Số tiền đề nghị")}
+                        disabled={true}
+                        name="SGSTCRAM"
+                        id="SGSTCRAM"
+                        value={header?.SGSTCRAM}
+                        defaultValue={header?.SGSTCRAM}
+                      />
+                    </div>
+
+                    {/* So tien chi & Phuong thuc thanh toan */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-3">
+                      {/* So tien chi */}
+                      <FieldEditNumberic
+                        title={getLabelValue(214, "Số tiền chi")}
+                        disabled={true}
+                        name="SUM_CRAM"
+                        id="SUM_CRAM"
+                        value={header?.SUM_CRAM}
+                        defaultValue={header?.SUM_CRAM}
+                      />
+
+                      {/* Phuong thuc thanh toan */}
+                      <FieldEditDropdown
+                        title={getLabelValue(37, "Phương thức thanh toán")}
+                        id="PYMNTYPE"
+                        name="PYMNTYPE"
+                        data={lstPymnType}
+                        defaultValue={
+                          header.PYMNTYPE !== ""
+                            ? lstPymnType.find(
+                                (item) =>
+                                  parseInt(item.ITEMCODE) === header.PYMNTYPE
+                              )
+                            : {}
+                        }
+                        value={
+                          header.PYMNTYPE !== ""
+                            ? lstPymnType.find(
+                                (item) =>
+                                  parseInt(item.ITEMCODE) === header.PYMNTYPE
+                              )
+                            : {}
+                        }
+                        textField="ITEMNAME"
+                        dataItemKey="ITEMCODE"
+                        onChange={(e) => {
                           setHeader({
                             ...header,
-                            EMPLCODE: e.target.value.ITEMCODE,
+                            PYMNTYPE: parseInt(e.target.value.ITEMCODE),
                           });
-                        }
-                      }}
-                      disabled={!permissions}
-                    />
+                        }}
+                        disabled={!permissions}
+                      />
+                    </div>
+
+                    {/* File đính kèm */}
+                    <div className="mb-3">
+                      <div className="file-attach">
+                        <div className="flex mb-3">
+                          <p className="w-full">
+                            {getLabelValue(57, "File đính kèm")}
+                          </p>
+                          {permissions && (
+                            <input
+                              type="file"
+                              multiple
+                              className="text-sm cursor-pointer relative block w-32 h-full"
+                              onChange={(e) => {
+                                onFileSelected(e);
+                                e.target.value == null;
+                              }}
+                              disabled={!permissions}
+                            />
+                          )}
+                        </div>
+                        <div>
+                          <div className="fileattachment">
+                            {files &&
+                              files.length > 0 &&
+                              files.map((fileItem) => (
+                                <FileItem
+                                  key={fileItem.id}
+                                  fileItem={fileItem}
+                                  onFileRemove={onFileRemove}
+                                  disabled={permissions}
+                                />
+                              ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-
-                </div>
-
               </TabStripTab>
               <TabStripTab
                 title="Thông tin chung 2"
@@ -1126,22 +1321,22 @@ const SpendSuggestEditMain = (props) => {
                       style={{ borderColor: "grey" }}
                       value={
                         lstLocation &&
-                          lstLocation.length > 0 &&
-                          header?.LCTNCODE !== "" &&
-                          header?.LCTNCODE !== null
+                        lstLocation.length > 0 &&
+                        header?.LCTNCODE !== "" &&
+                        header?.LCTNCODE !== null
                           ? lstLocation.find(
-                            (item) => item.ITEMCODE === header?.LCTNCODE
-                          )
+                              (item) => item.ITEMCODE === header?.LCTNCODE
+                            )
                           : "null"
                       }
                       defaultValue={
                         lstLocation &&
-                          lstLocation.length > 0 &&
-                          header?.LCTNCODE !== "" &&
-                          header?.LCTNCODE !== null
+                        lstLocation.length > 0 &&
+                        header?.LCTNCODE !== "" &&
+                        header?.LCTNCODE !== null
                           ? lstLocation.find(
-                            (item) => item.ITEMCODE === header?.LCTNCODE
-                          )
+                              (item) => item.ITEMCODE === header?.LCTNCODE
+                            )
                           : "null"
                       }
                       disabled={true}
@@ -1158,15 +1353,15 @@ const SpendSuggestEditMain = (props) => {
                       defaultValue={
                         header !== undefined
                           ? lstDcmn_Sub.find(
-                            (item) => item.ITEMCODE === header?.DCMNSBCD
-                          )
+                              (item) => item.ITEMCODE === header?.DCMNSBCD
+                            )
                           : {}
                       }
                       value={
                         header !== undefined
                           ? lstDcmn_Sub.find(
-                            (item) => item.ITEMCODE === header?.DCMNSBCD
-                          )
+                              (item) => item.ITEMCODE === header?.DCMNSBCD
+                            )
                           : {}
                       }
                       textField="ITEMNAME"

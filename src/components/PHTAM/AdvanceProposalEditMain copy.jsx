@@ -26,7 +26,6 @@ import {
   AiOutlineFileImage,
   AiOutlineFileText,
   AiFillFileImage,
-  AiFillFile,
 } from "react-icons/ai";
 
 import {
@@ -35,14 +34,12 @@ import {
   FieldEditDatePicker,
   FieldEditCombobox,
   FieldEditDropdown,
-  FieldEditInput,
   FieldEditNumberic,
   FieldEditMaskText,
   FileItem,
   FieldEditTextArea,
   DialogSystem,
   DialogDelete,
-  FieldEditInputSearch,
 } from "../";
 
 import { TabStrip, TabStripTab } from "@progress/kendo-react-layout";
@@ -269,7 +266,7 @@ const AdvanceProposalEditMain = (props) => {
       header.OBJCCODE === "" ||
       header.OBJCCODE === null ||
       lstAccObjcCode.find((item) => item.ITEMCODE === header.OBJCCODE) ==
-      undefined
+        undefined
     ) {
       setOpenNotify(true);
       setContentNotify({
@@ -612,7 +609,7 @@ const AdvanceProposalEditMain = (props) => {
       const file = e.target.files[i];
       const fileType = file.name
         .split(".")
-      [file.name.split(".").length - 1].toLowerCase();
+        [file.name.split(".").length - 1].toLowerCase();
 
       const icon = getFileIcon(fileType);
       setFiles((dcmnFiles) => [
@@ -680,17 +677,17 @@ const AdvanceProposalEditMain = (props) => {
               className="Tab-flex"
             >
               <TabStripTab title={getLabelValue(116, "Thông tin chung")}>
-                <div className="grid gap-2">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="w-full">
                     {/* So chung tu & Ngay chung tu */}
-                    <div className="grid grid-cols-1 xs:grid-cols-2 gap-2">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
                       {/* So chung tu */}
                       <FieldEditMaskText
                         id="MAINCODE"
                         name="MAINCODE"
                         title={getLabelValue(117, "Số chứng từ")}
-                        value={header.MAINCODE ? header.MAINCODE : "Tự động tạo mã"}
-                        defaultValue={header.MAINCODE ? header.MAINCODE : "Tự động tạo mã"}
+                        value={header?.MAINCODE}
+                        defaultValue={header?.MAINCODE}
                       />
 
                       {/* Ngay tao */}
@@ -718,32 +715,9 @@ const AdvanceProposalEditMain = (props) => {
                         }
                       />
                     </div>
-                    {/* Chi nhanh */}
-                    <FieldEditDropdown
-                      title={getLabelValue(null, "Chi nhánh")}
-                      id={"DCMNSBCD"}
-                      data={lstDcmn_Sub}
-                      value={
-                        header !== undefined
-                          ? lstDcmn_Sub.find(
-                            (item) => item.ITEMCODE === header?.DCMNSBCD
-                          )
-                          : {}
-                      }
-                      textField="ITEMNAME"
-                      dataItemKey="ITEMCODE"
-                      onChange={(event) =>
-                        setHeader({
-                          ...header,
-                          DCMNSBCD: event.value.ITEMCODE,
-                        })
-                      }
-                      disabled={!permissions}
-                    />
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+
                     {/* Loai tam ung & Loai doi  tuong */}
-                    <div className="grid grid-cols-1 xs:grid-cols-2 gap-2">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
                       {/* Loai tam ung */}
                       <FieldEditDropdown
                         title={getLabelValue(142, "Loại tạm ứng")}
@@ -752,8 +726,8 @@ const AdvanceProposalEditMain = (props) => {
                         value={
                           header !== undefined
                             ? lstDcmn_Sub.find(
-                              (item) => item.ITEMCODE === header?.DCMNSBCD
-                            )
+                                (item) => item.ITEMCODE === header?.DCMNSBCD
+                              )
                             : {}
                         }
                         textField="ITEMNAME"
@@ -775,16 +749,16 @@ const AdvanceProposalEditMain = (props) => {
                         defaultValue={
                           header !== undefined
                             ? lstAdvnType.find(
-                              (item) =>
-                                parseInt(item.ITEMCODE) == header?.OBJCTYPE
-                            )
+                                (item) =>
+                                  parseInt(item.ITEMCODE) == header?.OBJCTYPE
+                              )
                             : {}
                         }
                         value={
                           header !== undefined
                             ? lstAdvnType.find(
-                              (item) => item.OBJCTYPE == header?.OBJCTYPE
-                            )
+                                (item) => item.OBJCTYPE == header?.OBJCTYPE
+                              )
                             : {}
                         }
                         textField="ITEMNAME"
@@ -793,21 +767,44 @@ const AdvanceProposalEditMain = (props) => {
                         disabled={!permissions}
                       />
                     </div>
-                    {/* Doi tuong nhan */}
-                    <FieldEditInputSearch
-                      id="MAINCODE"
-                      name="MAINCODE"
-                      title={getLabelValue(null, "Đối tượng nhận")}
-                      value={header?.MAINCODE}
-                      defaultValue={header?.MAINCODE}
-                    />
+
+                    {/* Doi tuong */}
+                    <div className="mb-3">
+                      <FieldEditCombobox
+                        title={getLabelValue(143, "Đối tượng")}
+                        id={"OBJCCODE"}
+                        data={lstAccObjcCode}
+                        defaultValue={
+                          header !== undefined &&
+                          header.OBJCCODE !== null &&
+                          header.OBJCCODE !== ""
+                            ? lstAccObjcCode.find(
+                                (item) => item.ITEMCODE === header.OBJCCODE
+                              )
+                            : null
+                        }
+                        value={
+                          header !== undefined && header.OBJCCODE !== null
+                            ? lstAccObjcCode.find(
+                                (item) => item.ITEMCODE === header.OBJCCODE
+                              )
+                            : null
+                        }
+                        textField="ITEMSRCH"
+                        dataItemKey="ITEMCODE"
+                        onChange={ObjcCodeChgeHandler}
+                        filterable={true}
+                        disabled={!permissions || loadingAccObjcList}
+                      />
+                    </div>
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                      {/* Don vi tien te & Ty gia */}
-                      <div className="grid grid-cols-1 xs:grid-cols-3 gap-2">
-                        {/* Don vi tien te */}
-                        <div className="xs:col-span-2">
+                  <div className="w-full">
+                    {/* Don vi tien te & Ty gia & Tien tam ung */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+                      <div className="w-full">
+                        {/* Don vi tien te & Ty gia */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
+                          {/* Don vi tien te */}
                           <FieldEditDropdown
                             title={getLabelValue(87, "ĐV Tiền tệ")}
                             id={"CUOMCODE"}
@@ -815,8 +812,8 @@ const AdvanceProposalEditMain = (props) => {
                             value={
                               header !== undefined
                                 ? lstCUOM.find(
-                                  (item) => item.ITEMCODE === header.CUOMCODE
-                                )
+                                    (item) => item.ITEMCODE === header.CUOMCODE
+                                  )
                                 : {}
                             }
                             style={{ width: "100%" }}
@@ -830,9 +827,8 @@ const AdvanceProposalEditMain = (props) => {
                             }
                             disabled={!permissions}
                           />
-                        </div>
-                        {/* Ty gia */}
-                        <div className="xs:col-span-1" >
+
+                          {/* Ty gia */}
                           <FieldEditNumberic
                             title={getLabelValue(88, "Tỷ giá")}
                             id={"CUOMRATE"}
@@ -848,6 +844,7 @@ const AdvanceProposalEditMain = (props) => {
                           />
                         </div>
                       </div>
+
                       {/* Tien tam ung */}
                       <FieldEditNumberic
                         title={getLabelValue(146, "Tiền tạm ứng")}
@@ -863,125 +860,145 @@ const AdvanceProposalEditMain = (props) => {
                         disabled={!permissions}
                       />
                     </div>
-                    <div className="grid grid-cols-1 xs:grid-cols-3 gap-2">
-                      {/* So tien duoc duyet */}
+
+                    {/* So tien da nhan & So tien da thanh toan */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+                      {/* Số tiền đã nhận */}
                       <FieldEditNumberic
-                        title={getLabelValue(null, "Số tiền được duyệt")}
+                        title={getLabelValue(147, "Số tiền đã nhận")}
                         id={"RCPTCRAM"}
                         value={header.RCPTCRAM ? header.RCPTCRAM : 0}
                         // format="n4"
                         disabled={true}
                       />
-                      {/* So tien duoc nhan */}
+
+                      {/* So tien da thanh toan */}
                       <FieldEditNumberic
-                        title={getLabelValue(null, "Số tiền được nhận")}
+                        title={getLabelValue(148, "Số tiền đã thanh toán")}
                         id={"RCPTCRAM"}
-                        value={header.RCPTCRAM ? header.RCPTCRAM : 0}
-                        // format="n4"
-                        disabled={true}
-                      />
-                      {/* So tien hoan ung */}
-                      <FieldEditNumberic
-                        title={getLabelValue(null, "Số tiền hoàn ứng")}
-                        id={"RCPTCRAM"}
-                        value={header.RCPTCRAM ? header.RCPTCRAM : 0}
+                        value={header.PAY_CRAM ? header.PAY_CRAM : 0}
                         // format="n4"
                         disabled={true}
                       />
                     </div>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                    {/* Bo phan */}
-                    <FieldEditMaskText
-                      title={getLabelValue(150, "Bộ phận")}
-                      id={""}
-                      value={DptmName}
-                    />
-                    {/* Nhan vien lap phieu */}
-                    {/* Doi tuong nhan */}
-                    <FieldEditInputSearch
-                      id="MAINCODE"
-                      name="MAINCODE"
-                      title={getLabelValue(null, "Đối tượng nhận")}
-                      data={lstEmployee}
-                      textField="ITEMNAME"
-                      dataItemKey="ITEMCODE"
-                      value={header?.MAINCODE}
-                      defaultValue={header?.MAINCODE}
-                    />
-                    {/* <FieldEditDropdown
-                      title={getLabelValue(149, "Nhân viên lập phiếu")}
-                      id={"EMPLCODE"}
-                      data={lstEmployee}
-                      value={
-                        header !== undefined
-                          ? lstEmployee.find(
-                            (item) => item.ITEMCODE === header?.EMPLCODE
-                          )
-                          : {}
-                      }
-                      textField="ITEMNAME"
-                      dataItemKey="ITEMCODE"
-                      onChange={(event) => {
-                        setHeader({
-                          ...header,
-                          EMPLCODE: event.value.ITEMCODE,
-                        });
 
-                        setDptmName(getDptmName(event.value.ITEMCODE));
-                      }}
-                      disabled={!permissions}
-                    /> */}
+                    {/* Ly do de nghi */}
+                    <div className="mb-3">
+                      <FieldEditTextArea
+                        title={getLabelValue(199, "Lý do đề nghị")}
+                        id={"MEXLNNTE"}
+                        value={header?.MEXLNNTE}
+                        defaultValue={header?.MEXLNNTE}
+                        onChange={(e) => {
+                          setHeader({ ...header, MEXLNNTE: e.value });
+                        }}
+                        disabled={!permissions}
+                      />
+                    </div>
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                    {/* Du an */}
-                    <FieldEditDropdown
-                      title={getLabelValue(151, "Dự án")}
-                      id={"ACOBCODE"}
-                      data={lstAcObManage}
-                      value={
-                        header !== undefined
-                          ? lstPymnType.find(
-                            (item) => item.ITEMCODE === header?.ACOBCODE
-                          )
-                          : {}
-                      }
-                      textField="ITEMNAME"
-                      dataItemKey="ITEMCODE"
-                      onChange={(event) =>
-                        setHeader({
-                          ...header,
-                          ACOBCODE: event.value.ITEMCODE,
-                        })
-                      }
-                      disabled={!permissions}
-                    />
+                  <div className="w-full">
+                    {/* NV lap phieu & Bo phan */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+                      {/* NV lap phieu */}
+                      <FieldEditDropdown
+                        title={getLabelValue(149, "NV lập phiếu")}
+                        id={"EMPLCODE"}
+                        data={lstEmployee}
+                        value={
+                          header !== undefined
+                            ? lstEmployee.find(
+                                (item) => item.ITEMCODE === header?.EMPLCODE
+                              )
+                            : {}
+                        }
+                        textField="ITEMNAME"
+                        dataItemKey="ITEMCODE"
+                        onChange={(event) => {
+                          setHeader({
+                            ...header,
+                            EMPLCODE: event.value.ITEMCODE,
+                          });
+
+                          setDptmName(getDptmName(event.value.ITEMCODE));
+                        }}
+                        disabled={!permissions}
+                      />
+                      {/* Bo phan */}
+                      <FieldEditMaskText
+                        title={getLabelValue(150, "Bộ phận")}
+                        id={""}
+                        value={DptmName}
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+                      {/* Phuong thuc thanh toan */}
+                      <FieldEditDropdown
+                        title={getLabelValue(37, "Phương thức thanh toán")}
+                        id={"PYMNTYPE"}
+                        data={lstPymnType}
+                        value={
+                          header !== undefined
+                            ? lstPymnType.find(
+                                (item) =>
+                                  parseInt(item.ITEMCODE) === header?.PYMNTYPE
+                              )
+                            : {}
+                        }
+                        textField="ITEMNAME"
+                        dataItemKey="ITEMCODE"
+                        onChange={(event) =>
+                          setHeader({
+                            ...header,
+                            PYMNTYPE: event.value.ITEMCODE,
+                          })
+                        }
+                        disabled={!permissions}
+                      />
+
+                      {/* Du an */}
+                      <FieldEditDropdown
+                        title={getLabelValue(151, "Dự án")}
+                        id={"ACOBCODE"}
+                        data={lstAcObManage}
+                        value={
+                          header !== undefined
+                            ? lstPymnType.find(
+                                (item) => item.ITEMCODE === header?.ACOBCODE
+                              )
+                            : {}
+                        }
+                        textField="ITEMNAME"
+                        dataItemKey="ITEMCODE"
+                        onChange={(event) =>
+                          setHeader({
+                            ...header,
+                            ACOBCODE: event.value.ITEMCODE,
+                          })
+                        }
+                        disabled={!permissions}
+                      />
+                    </div>
+
                     {/* File dinh kem */}
                     <div className="mb-3">
                       <div className="file-attach">
-                        <div className="mb-3">
+                        <div className="flex mb-3">
                           <p className="w-full">
                             {getLabelValue(57, "File đính kèm")}
                           </p>
-                          <div className="inline-flex relative border border-gray-300 h-7 w-full items-center k-rounded-md">
-                            <button className="border-r border-gray-300 bg-[#f5f5f5] px-2 h-full" disabled>
-                              <AiFillFile />
-                            </button>
-                            <div className="">
-                              {permissions && (
-                                <input
-                                  type="file"
-                                  multiple
-                                  className="text-xs pl-2"
-                                  onChange={(e) => {
-                                    onFileSelected(e);
-                                    e.target.value == null;
-                                  }}
-                                  disabled={!permissions}
-                                />
-                              )}
-                            </div>
-                          </div>
+                          {permissions && (
+                            <input
+                              type="file"
+                              multiple
+                              className="text-sm cursor-pointer relative block w-32 h-full"
+                              onChange={(e) => {
+                                onFileSelected(e);
+                                e.target.value == null;
+                              }}
+                              disabled={!permissions}
+                            />
+                          )}
                         </div>
                         <div>
                           <div className="fileattachment">
@@ -1000,45 +1017,28 @@ const AdvanceProposalEditMain = (props) => {
                       </div>
                     </div>
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                    <FieldEditTextArea
-                      title={getLabelValue(199, "Lý do đề nghị")}
-                      id={"MEXLNNTE"}
-                      value={header?.MEXLNNTE}
-                      defaultValue={header?.MEXLNNTE}
-                      onChange={(e) => {
-                        setHeader({ ...header, MEXLNNTE: e.value });
-                      }}
-                      disabled={!permissions}
-                    />
-                    <div className="h-full w-full border border-gray-300 k-rounded-md"></div>
-                  </div>
                 </div>
               </TabStripTab>
             </TabStrip>
-          </div >
-        </div >
-      </div >
+          </div>
+        </div>
+      </div>
 
       {/* Xử lý Hậu kiểm khi khóa ct */}
-      {
-        openNotify && (
-          <DialogSystem item={contentNotify} cancelNotify={CancelNotifyHandler} />
-        )
-      }
+      {openNotify && (
+        <DialogSystem item={contentNotify} cancelNotify={CancelNotifyHandler} />
+      )}
 
-      {
-        dialogDelete && (
-          <DialogDelete
-            acptDelete={acptDelete}
-            setAcptDelete={setAcptDelete}
-            dialogDelete={dialogDelete}
-            setDialogDelete={setDialogDelete}
-            onCancelDelete={CancelDeleteHandler}
-            MainCode={header?.MAINCODE}
-          />
-        )
-      }
+      {dialogDelete && (
+        <DialogDelete
+          acptDelete={acptDelete}
+          setAcptDelete={setAcptDelete}
+          dialogDelete={dialogDelete}
+          setDialogDelete={setDialogDelete}
+          onCancelDelete={CancelDeleteHandler}
+          MainCode={header?.MAINCODE}
+        />
+      )}
     </>
   );
 };

@@ -11,10 +11,11 @@ const FieldEditTextArea = (fieldRenderProps) => {
 
   return (
     <FieldWrapper>
-      {title && <Label className="text-sm text-gray-500">{title}</Label>}
+      {/* {title && <Label className="text-sm text-gray-500">{title}</Label>} */}
       <div className={`k-form-field-wrap ${appColors.inputColor}`}>
         <TextArea
           className="border-[#808080] border-[1px]"
+          placeholder={title}
           name={id}
           id={id}
           rows={row}
