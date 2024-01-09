@@ -1036,12 +1036,6 @@ const SpendSuggestEditMain = (props) => {
                       </div>
                     </div>
                     <div className="grid lg:col-span-6 sm:grid-cols-2 gap-2">
-                      {/* Bo phan */}
-                      <FieldEditMaskText
-                        title={getLabelValue(150, "Bộ phận")}
-                        id={""}
-                        value={""}
-                      />
                       <FieldEditComboboxSearch
                         title={getLabelValue(203, "Nhân viên lập phiếu")}
                         id={"OBJCCODE"}
@@ -1071,6 +1065,12 @@ const SpendSuggestEditMain = (props) => {
                           }
                         }}
                         disabled={!permissions}
+                      />
+                      {/* Bo phan */}
+                      <FieldEditMaskText
+                        title={getLabelValue(150, "Bộ phận")}
+                        id={""}
+                        value={""}
                       />
                     </div>
                   </div>
@@ -1136,7 +1136,7 @@ const SpendSuggestEditMain = (props) => {
                         />
                         {/* Ngay chung tu */}
                         <FieldEditDatePicker
-                          title={getLabelValue(118, "Ngày tạm ứng")}
+                          title={getLabelValue(null, "Ngày tạm ứng")}
                           format="dd/MM/yyyy"
                           defaultValue={new Date(header?.MAINDATE)}
                           value={new Date(header?.MAINDATE)}
