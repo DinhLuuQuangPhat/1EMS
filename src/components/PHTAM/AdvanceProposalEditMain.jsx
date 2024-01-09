@@ -964,7 +964,7 @@ const AdvanceProposalEditMain = (props) => {
                       disabled={!permissions}
                     />
                     {/* File dinh kem */}
-                    <div className="mb-3">
+                    <div>
                       <div className="file-attach">
                         <div className="mb-3">
                           <p className="w-full">
@@ -974,7 +974,7 @@ const AdvanceProposalEditMain = (props) => {
                             <button className="border-r border-gray-300 bg-[#f5f5f5] px-2 h-full" disabled>
                               <AiFillFile />
                             </button>
-                            <div className="">
+                            <div>
                               {permissions && (
                                 <input
                                   type="file"
@@ -1007,10 +1007,11 @@ const AdvanceProposalEditMain = (props) => {
                       </div>
                     </div>
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2 h-full">
                     <FieldEditTextArea
-                      title={getLabelValue(199, "Lý do đề nghị")}
+                      placeholder={getLabelValue(199, "Lý do đề nghị")}
                       id={"MEXLNNTE"}
+                      row={5}
                       value={header?.MEXLNNTE}
                       defaultValue={header?.MEXLNNTE}
                       onChange={(e) => {

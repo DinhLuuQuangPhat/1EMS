@@ -6,16 +6,16 @@ import { useStateContext } from "../context/ContextProvider";
 
 const FieldEditTextArea = (fieldRenderProps) => {
   const { appColors } = useStateContext();
-  const { title, id, defaultValue, value, onChange, row, disabled, ...others } =
+  const { title, id, defaultValue, value, onChange, row, disabled, placeholder, ...others } =
     fieldRenderProps;
 
   return (
     <FieldWrapper>
-      {/* {title && <Label className="text-sm text-gray-500">{title}</Label>} */}
+      {title && <Label className="text-sm text-gray-500">{title}</Label>}
       <div className={`k-form-field-wrap ${appColors.inputColor}`}>
         <TextArea
           className="border-[#808080] border-[1px]"
-          placeholder={title}
+          placeholder={placeholder}
           name={id}
           id={id}
           rows={row}

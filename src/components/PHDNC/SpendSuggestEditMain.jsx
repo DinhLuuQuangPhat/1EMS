@@ -798,7 +798,7 @@ const SpendSuggestEditMain = (props) => {
               className="Tab-flex"
             >
               <TabStripTab title={getLabelValue(116, "Thông tin chung")}>
-                <div className="grid  gap-2">
+                <div className="grid gap-2">
                   <div className="grid grid-cols-1 md:grid-cols-12 gap-2">
                     <div className="md:col-span-2">
                       {/* So chung tu */}
@@ -992,7 +992,7 @@ const SpendSuggestEditMain = (props) => {
                   <div className="md:col-span-4">
                     {/* Đối tượng */}
                     <div className="mb-3">
-                      <FieldEditCombobox
+                      <FieldEditComboboxSearch
                         title={getLabelValue(143, "Đối tượng")}
                         id={"OBJCCODE"}
                         data={listObjectCode}
@@ -1047,7 +1047,7 @@ const SpendSuggestEditMain = (props) => {
                     />
                   </div>
                   <div className="md:col-span-3">
-                    <FieldEditCombobox
+                    <FieldEditComboboxSearch
                       title={getLabelValue(203, "Nhân viên lập phiếu")}
                       id={"OBJCCODE"}
                       data={lstEmployee}
@@ -1218,53 +1218,12 @@ const SpendSuggestEditMain = (props) => {
                     }}
                     disabled={!permissions}
                   />
-                  {/* File dinh kem */}
-                  <div className="mb-3">
-                    <div className="file-attach">
-                      <div className="mb-3">
-                        <p className="w-full">
-                          {getLabelValue(57, "File đính kèm")}
-                        </p>
-                        <div className="inline-flex relative border border-gray-300 h-7 w-full items-center k-rounded-md">
-                          <button className="border-r border-gray-300 bg-[#f5f5f5] px-2 h-full" disabled>
-                            <AiFillFile />
-                          </button>
-                          <div className="">
-                            {permissions && (
-                              <input
-                                type="file"
-                                multiple
-                                className="text-xs pl-2"
-                                onChange={(e) => {
-                                  onFileSelected(e);
-                                  e.target.value == null;
-                                }}
-                                disabled={!permissions}
-                              />
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                      <div>
-                        <div className="fileattachment">
-                          {files &&
-                            files.length > 0 &&
-                            files.map((fileItem) => (
-                              <FileItem
-                                key={fileItem.id}
-                                fileItem={fileItem}
-                                onFileRemove={onFileRemove}
-                                disabled={permissions}
-                              />
-                            ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 h-full">
                   <FieldEditTextArea
                     title={getLabelValue(199, "Lý do đề nghị")}
+                    placeholder={getLabelValue(199, "Lý do đề nghị")}
+                    row={5}
                     id={"MEXLNNTE"}
                     value={header?.MEXLNNTE}
                     defaultValue={header?.MEXLNNTE}
@@ -1274,149 +1233,51 @@ const SpendSuggestEditMain = (props) => {
                     disabled={!permissions}
 
                   />
-                  <div className="h-full w-full border border-gray-300 k-rounded-md"></div>
-                </div>
-              </TabStripTab>
-              <TabStripTab
-                title="Thông tin chung 2"
-                contentClassName="full-width-ems"
-              >
-                <div className="grid grid-cols-12 gap-3">
-                  <div className="col-start-1 col-span-2">
-                    {/* So chung tu */}
-                    <FieldEditMaskText
-                      title={getLabelValue(117, "Số chứng từ")}
-                      id="MAINCODE"
-                      name="MAINCODE"
-                      style={{ borderColor: "grey" }}
-                      value={header?.MAINCODE}
-                      defaultValue={header?.MAINCODE}
-                      disabled={true}
-                    />
-                  </div>
-
-                  <div className="col-start-3 col-span-2">
-                    {/* Ngay chung tu */}
-                    <FieldEditDatePicker
-                      title={getLabelValue(118, "Ngày chứng từ")}
-                      format="dd/MM/yyyy"
-                      defaultValue={new Date(header?.MAINDATE)}
-                      value={new Date(header?.MAINDATE)}
-                      disabled={!permissions}
-                      onChange={(e) => {
-                        setHeader({
-                          ...header,
-                          MAINDATE: moment(e.value).format("YYYY-MM-DD"),
-                        });
-                      }}
-                    />
-                  </div>
-
-                  <div className="col-start-5 col-span-5">
-                    {/* Chi nhanh */}
-                    <FieldEditDropdown
-                      title={getLabelValue(173, "Chi nhánh")}
-                      id="LCTNCODE"
-                      name="LCTNCODE"
-                      style={{ borderColor: "grey" }}
-                      value={
-                        lstLocation &&
-                          lstLocation.length > 0 &&
-                          header?.LCTNCODE !== "" &&
-                          header?.LCTNCODE !== null
-                          ? lstLocation.find(
-                            (item) => item.ITEMCODE === header?.LCTNCODE
-                          )
-                          : "null"
-                      }
-                      defaultValue={
-                        lstLocation &&
-                          lstLocation.length > 0 &&
-                          header?.LCTNCODE !== "" &&
-                          header?.LCTNCODE !== null
-                          ? lstLocation.find(
-                            (item) => item.ITEMCODE === header?.LCTNCODE
-                          )
-                          : "null"
-                      }
-                      disabled={true}
-                      data={lstLocation}
-                      textField="ITEMNAME"
-                      dataItemKey="ITEMCODE"
-                    />
-                  </div>
-                  <div className="col-start-10 col-span-3">
-                    <FieldEditCombobox
-                      title={getLabelValue(200, "Loại đề nghị")}
-                      id={"DCMNSBCD"}
-                      data={lstDcmn_Sub}
-                      defaultValue={
-                        header !== undefined
-                          ? lstDcmn_Sub.find(
-                            (item) => item.ITEMCODE === header?.DCMNSBCD
-                          )
-                          : {}
-                      }
-                      value={
-                        header !== undefined
-                          ? lstDcmn_Sub.find(
-                            (item) => item.ITEMCODE === header?.DCMNSBCD
-                          )
-                          : {}
-                      }
-                      textField="ITEMNAME"
-                      dataItemKey="ITEMCODE"
-                      onChange={(e) => {
-                        // Xóa ct Đề nghị tam ưng khi khong chon Hoan ung
-                        if (
-                          e.value !== "003" ||
-                          e.value !== "004" ||
-                          e.value !== "005"
-                        ) {
-                          const newRcptCrame = header.RCPTCRAM;
-                          const SgstCram = header.SGSTCRAM;
-                          const newSumCram = SgstCram - newRcptCrame;
-
-                          setHeader({
-                            ...header,
-                            ADVNCODE: "",
-                            ADVNDATE: "1990-01-01",
-                            RCPTCRAM: 0,
-                            DCMNSBCD: e.target.value.ITEMCODE,
-                            OBJCTYPE: parseInt(e.target.value.ITEMATTR),
-                            OBJCCODE: null,
-                            OBJCNAME: "",
-                            SUM_CRAM: newSumCram,
-                          });
-                        } else {
-                          setHeader({
-                            ...header,
-                            DCMNSBCD: e.target.value.ITEMCODE,
-                            OBJCTYPE: parseInt(e.target.value.ITEMATTR),
-                            OBJCCODE: null,
-                            OBJCNAME: "",
-                          });
-                        }
-
-                        // Thay doi Danh sach Doi tuong
-                        if (e.target.value.ITEMATTR == 0) {
-                          setListObjectCode(lstEmployee);
-                        }
-                        if (e.target.value.ITEMATTR == 1) {
-                          setListObjectCode(lstSupplier_CurrCode);
-                        }
-                        if (e.target.value.ITEMATTR == 2) {
-                          setListObjectCode(lstCustomer_CurrCode);
-                        }
-                        if (e.target.value.ITEMATTR == 3) {
-                          setListObjectCode(lstCounter);
-                        }
-                        if (e.target.value.ITEMATTR == 4) {
-                          setListObjectCode(lstBankAccount);
-                        }
-                      }}
-                      disabled={!permissions}
-                    />
+                  <div className="grid grid-row-1 md:grid-rows-2 gap-2">
+                    {/* File dinh kem */}
+                    <div>
+                      <div className="file-attach">
+                        <div className="mb-3">
+                          <p className="w-full">
+                            {getLabelValue(57, "File đính kèm")}
+                          </p>
+                          <div className="inline-flex relative border border-gray-300 h-7 w-full items-center k-rounded-md">
+                            <button className="border-r border-gray-300 bg-[#f5f5f5] px-2 h-full" disabled>
+                              <AiFillFile />
+                            </button>
+                            <div>
+                              {permissions && (
+                                <input
+                                  type="file"
+                                  multiple
+                                  className="text-xs pl-2"
+                                  onChange={(e) => {
+                                    onFileSelected(e);
+                                    e.target.value == null;
+                                  }}
+                                  disabled={!permissions}
+                                />
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="fileattachment">
+                            {files &&
+                              files.length > 0 &&
+                              files.map((fileItem) => (
+                                <FileItem
+                                  key={fileItem.id}
+                                  fileItem={fileItem}
+                                  onFileRemove={onFileRemove}
+                                  disabled={permissions}
+                                />
+                              ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="h-full w-full border border-gray-300 k-rounded-md"></div>
                   </div>
                 </div>
               </TabStripTab>

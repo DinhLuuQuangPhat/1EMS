@@ -10,7 +10,6 @@ import {
   FieldEditDatePicker,
   FieldEditTextArea,
   FieldEditMaskText,
-  FieldEditInput,
   DialogDelete,
   DialogSystem,
 } from "../";
@@ -34,7 +33,6 @@ import {
   AiOutlineFileImage,
   AiOutlineFileText,
   AiFillFileImage,
-  AiFillFile,
 } from "react-icons/ai";
 import { ActionHeader, TitleHeader } from "../../components";
 
@@ -377,7 +375,7 @@ const ServiceContactEditMain = (props) => {
           }
         }
       })
-      .then((result) => { })
+      .then((result) => {})
       .catch((error) => console.log("error", error));
   };
 
@@ -395,7 +393,7 @@ const ServiceContactEditMain = (props) => {
       const file = e.target.files[i];
       const fileType = file.name
         .split(".")
-      [file.name.split(".").length - 1].toLowerCase();
+        [file.name.split(".").length - 1].toLowerCase();
 
       const icon = getFileIcon(fileType);
       //const icon = ExcelIcon
@@ -524,10 +522,10 @@ const ServiceContactEditMain = (props) => {
                 className="Tab-flex"
               >
                 <TabStripTab title={"Thông tin chung"}>
-                  <div className="grid gap-2">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="w-full">
                       {/* So chung tu & Ngay chung tu */}
-                      <div className="grid grid-cols-1 xs:grid-cols-2 gap-2">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
                         {/* So chung tu */}
                         <FieldEditMaskText
                           id="MAINCODE"
@@ -535,6 +533,7 @@ const ServiceContactEditMain = (props) => {
                           title={getLabelValue(117, "Số chứng từ")}
                           value={header?.MAINCODE}
                         />
+
                         {/* Ngay chung tu */}
                         <FieldEditDatePicker
                           id="MAINDATE"
@@ -555,195 +554,165 @@ const ServiceContactEditMain = (props) => {
                           }
                         />
                       </div>
-                      {/* Ten nhan vien */}
-                      <FieldEditMaskText
-                        id="EMPLNAME"
-                        name="EMPLNAME"
-                        title={getLabelValue(null, "Tên nhân viên")}
-                        value={userData.EMPLNAME}
-                      />
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                      {/* Danh sach nguoi nhan */}
-                      <FieldEditMultiSelect
-                        title={"Danh sách người nhận"}
-                        id={"EMPLRECV"}
-                        data={appEmplList}
-                        defaultValue={
-                          header !== undefined
-                            ? appEmplList.filter((item) =>
-                              header?.EMPLRECV?.split(",").includes(
-                                item.EMPLCODE
-                              )
-                            )
-                            : []
-                        }
-                        textField="EMPLNAME"
-                        dataItemKey="EMPLCODE"
-                        onChange={(e) => {
-                          var listEmpCode = [];
-                          e.value.map((item) =>
-                            listEmpCode.push(item.EMPLCODE)
-                          );
-                          setHeader({
-                            ...header,
-                            EMPLRECV: listEmpCode.join(),
-                          });
-                        }}
-                        disabled={!permissions}
-                      />
-                      {/* Danh sach tham khao */}
-                      <FieldEditMultiSelect
-                        title={"Danh sách tham khảo"}
-                        id={"EMPLREFR"}
-                        data={appEmplList}
-                        defaultValue={
-                          header !== undefined
-                            ? appEmplList.filter((item) =>
-                              header?.EMPLREFR?.split(",").includes(
-                                item.EMPLCODE
-                              )
-                            )
-                            : []
-                        }
-                        textField="EMPLNAME"
-                        dataItemKey="EMPLCODE"
-                        onChange={(e) => {
-                          var listEmpCode = [];
-                          e.value.map((item) =>
-                            listEmpCode.push(item.EMPLCODE)
-                          );
-                          setHeader({
-                            ...header,
-                            EMPLREFR: listEmpCode.join(),
-                          });
-                        }}
-                        disabled={!permissions}
-                      />
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                      {/* Lanh vuc lien quan */}
-                      <FieldEditCombobox
-                        title={getLabelValue(194, "Lĩnh vực liên quan")}
-                        id={"DCMNSBCD"}
-                        data={lstDcmn_Sub}
-                        defaultValue={
-                          header !== undefined
-                            ? lstDcmn_Sub.find(
-                              (item) => item.ITEMCODE === header.DCMNSBCD
-                            )
-                            : {}
-                        }
-                        textField="ITEMNAME"
-                        dataItemKey="ITEMCODE"
-                        onChange={(e) => {
-                          setHeader({
-                            ...header,
-                            DCMNSBCD: e.target.value.ITEMCODE,
-                          });
-                        }}
-                        disabled={!permissions}
-                      />
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                      {/* Muc dich lien he */}
-                      <FieldEditTextArea
-                        title={getLabelValue(195, "Mục đích liên hệ")}
-                        placeholder={getLabelValue(195, "Mục đích liên hệ")}
-                        row={5}
-                        defaultValue={header?.MPURPNME}
-                        value={header.MPURPNME}
-                        disabled={!permissions}
-                        onChange={(e) => {
-                          setHeader({
-                            ...header,
-                            MPURPNME: e.target.value,
-                          });
-                        }}
-                      />
-                      {/* Noi dung lien he */}
-                      <FieldEditTextArea
-                        title={getLabelValue(21, "Nội dung liên hệ")}
-                        placeholder={getLabelValue(21, "Nội dung liên hệ")}
-                        row={5}
-                        defaultValue={header?.MCONTENT}
-                        value={header?.MCONTENT}
-                        disabled={!permissions}
-                        onChange={(e) => {
-                          setHeader({
-                            ...header,
-                            MCONTENT: e.target.value,
-                          });
-                        }}
-                      />
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                      {/* Thoi gian hoan thanh */}
-                      <FieldEditDatePicker
-                        id="MAINDATE"
-                        name="MAINDATE"
-                        title={getLabelValue(118, "Thời gian hoàn thành")}
-                        format="dd/MM/yyyy"
-                        defaultValue={new Date(header?.MAINDATE)}
-                        disabled={!permissions}
-                        className={appColors.inputColor}
-                        value={new Date(header?.MAINDATE)}
-                        onChange={(e) =>
-                          setHeader({
-                            ...header,
-                            MAINDATE: moment(e.target.value).format(
-                              "YYYY-MM-DD"
-                            ),
-                          })
-                        }
-                      />
-                      {/* Dia diem */}
-                      <FieldEditInput
-                        title={getLabelValue(null, "Địa điểm")}
-                        placeholder={getLabelValue(null, "Địa điểm")}
-                      />
-                    </div>
-                    {/* File dinh kem */}
-                    <div>
-                      <div className="file-attach">
-                        <div className="mb-3">
-                          <p className="w-full">
-                            {getLabelValue(57, "File đính kèm")}
-                          </p>
-                          <div className="inline-flex relative border border-gray-300 h-7 w-full items-center k-rounded-md">
-                            <button className="border-r border-gray-300 bg-[#f5f5f5] px-2 h-full" disabled>
-                              <AiFillFile />
-                            </button>
+
+                      {/* Lãnh vực liên quan */}
+                      <div className="mb-3">
+                        <FieldEditCombobox
+                          title={getLabelValue(194, "Lĩnh vực liên quan")}
+                          id={"DCMNSBCD"}
+                          data={lstDcmn_Sub}
+                          defaultValue={
+                            header !== undefined
+                              ? lstDcmn_Sub.find(
+                                  (item) => item.ITEMCODE === header.DCMNSBCD
+                                )
+                              : {}
+                          }
+                          textField="ITEMNAME"
+                          dataItemKey="ITEMCODE"
+                          onChange={(e) => {
+                            setHeader({
+                              ...header,
+                              DCMNSBCD: e.target.value.ITEMCODE,
+                            });
+                          }}
+                          disabled={!permissions}
+                        />
+                      </div>
+
+                      {/* File đính kèm */}
+                      <div className="mb-3">
+                        <div className="file-attach">
+                          <div className="flex mb-3">
+                            <p className="w-full">
+                              {getLabelValue(57, "File đính kèm")}
+                            </p>
+                            {permissions && (
+                              <input
+                                type="file"
+                                multiple
+                                className="text-sm cursor-pointer relative block w-full h-full"
+                                onChange={(e) => {
+                                  onFileSelected(e);
+                                  e.target.value == null;
+                                }}
+                                disabled={!permissions}
+                              />
+                            )}
+                          </div>
+                          <div>
                             <div>
-                              {permissions && (
-                                <input
-                                  type="file"
-                                  multiple
-                                  className="text-xs pl-2"
-                                  onChange={(e) => {
-                                    onFileSelected(e);
-                                    e.target.value == null;
-                                  }}
-                                  disabled={!permissions}
-                                />
-                              )}
+                              {files &&
+                                files.length > 0 &&
+                                files.map((fileItem) => (
+                                  <FileItem
+                                    key={fileItem.id}
+                                    fileItem={fileItem}
+                                    onFileRemove={onFileRemove}
+                                    disabled={permissions}
+                                  />
+                                ))}
                             </div>
                           </div>
                         </div>
-                        <div>
-                          <div className="fileattachment">
-                            {files &&
-                              files.length > 0 &&
-                              files.map((fileItem) => (
-                                <FileItem
-                                  key={fileItem.id}
-                                  fileItem={fileItem}
-                                  onFileRemove={onFileRemove}
-                                  disabled={permissions}
-                                />
-                              ))}
-                          </div>
-                        </div>
+                      </div>
+                    </div>
+                    <div className="w-full">
+                      {/* Mục đích liên hệ */}
+                      <div className="mb-3">
+                        <FieldEditTextArea
+                          title={getLabelValue(195, "Mục đích liên hệ")}
+                          rows={2}
+                          defaultValue={header?.MPURPNME}
+                          value={header.MPURPNME}
+                          disabled={!permissions}
+                          onChange={(e) => {
+                            setHeader({
+                              ...header,
+                              MPURPNME: e.target.value,
+                            });
+                          }}
+                        />
+                      </div>
+
+                      {/* Nội dung liên hệ */}
+                      <div className="mb-3">
+                        <FieldEditTextArea
+                          title={getLabelValue(21, "Nội dung")}
+                          rows={2}
+                          defaultValue={header?.MCONTENT}
+                          value={header?.MCONTENT}
+                          disabled={!permissions}
+                          onChange={(e) => {
+                            setHeader({
+                              ...header,
+                              MCONTENT: e.target.value,
+                            });
+                          }}
+                        />
+                      </div>
+                    </div>
+                    <div className="w-full">
+                      {/* Danh sách người nhận */}
+                      <div className="mb-3">
+                        <FieldEditMultiSelect
+                          title={"Danh sách người nhận"}
+                          id={"EMPLRECV"}
+                          data={appEmplList}
+                          defaultValue={
+                            header !== undefined
+                              ? appEmplList.filter((item) =>
+                                  header?.EMPLRECV?.split(",").includes(
+                                    item.EMPLCODE
+                                  )
+                                )
+                              : []
+                          }
+                          textField="EMPLNAME"
+                          dataItemKey="EMPLCODE"
+                          onChange={(e) => {
+                            var listEmpCode = [];
+                            e.value.map((item) =>
+                              listEmpCode.push(item.EMPLCODE)
+                            );
+                            setHeader({
+                              ...header,
+                              EMPLRECV: listEmpCode.join(),
+                            });
+                          }}
+                          disabled={!permissions}
+                        />
+                      </div>
+
+                      {/* Danh sách tham khảo */}
+                      <div className="mb-3">
+                        <FieldEditMultiSelect
+                          title={"Danh sách tham khảo"}
+                          id={"EMPLREFR"}
+                          data={appEmplList}
+                          defaultValue={
+                            header !== undefined
+                              ? appEmplList.filter((item) =>
+                                  header?.EMPLREFR?.split(",").includes(
+                                    item.EMPLCODE
+                                  )
+                                )
+                              : []
+                          }
+                          textField="EMPLNAME"
+                          dataItemKey="EMPLCODE"
+                          onChange={(e) => {
+                            var listEmpCode = [];
+                            e.value.map((item) =>
+                              listEmpCode.push(item.EMPLCODE)
+                            );
+                            setHeader({
+                              ...header,
+                              EMPLREFR: listEmpCode.join(),
+                            });
+                          }}
+                          disabled={!permissions}
+                        />
                       </div>
                     </div>
                   </div>

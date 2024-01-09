@@ -156,25 +156,25 @@ const AskPermissionEditMain = (props) => {
       // Chuc danh
       lstJob
         ? setJobName(
-          lstJob.find((item) => item.ITEMCODE == infoEmpl.split("@@@")[0]) !==
-            undefined
-            ? lstJob.find((item) => item.ITEMCODE == infoEmpl.split("@@@")[0])
-              .ITEMNAME
-            : ""
-        )
+            lstJob.find((item) => item.ITEMCODE == infoEmpl.split("@@@")[0]) !==
+              undefined
+              ? lstJob.find((item) => item.ITEMCODE == infoEmpl.split("@@@")[0])
+                  .ITEMNAME
+              : ""
+          )
         : setJobName("");
 
       // Bo phan
       lstDepartment
         ? setDptmName(
-          lstDepartment.find(
-            (item) => item.ITEMCODE == infoEmpl.split("@@@")[1]
-          ) !== undefined
-            ? lstDepartment.find(
+            lstDepartment.find(
               (item) => item.ITEMCODE == infoEmpl.split("@@@")[1]
-            ).ITEMNAME
-            : ""
-        )
+            ) !== undefined
+              ? lstDepartment.find(
+                  (item) => item.ITEMCODE == infoEmpl.split("@@@")[1]
+                ).ITEMNAME
+              : ""
+          )
         : setDptmName("");
     } else {
       setDptmName("");
@@ -588,43 +588,137 @@ const AskPermissionEditMain = (props) => {
                   title={getLabelValue(116, "Thông tin chung")}
                   contentClassName="full-width-ems"
                 >
-                  <div className="grid gap-2">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                      <div className="grid grid-cols-1 xs:grid-cols-2 gap-2">
-                        {/* So chung tu */}
+                  <div className="grid grid-cols-12 gap-3">
+                    <div className="col-span-full col-start-1 md:col-start-1 md:col-span-4">
+                      {/* So chung tu & Ngay lap */}
+                      <div className="grid grid-cols-1 xs:grid-cols-2 gap-2 mb-3">
+                        {/*Số chứng từ */}
                         <FieldEditMaskText
+                          title={getLabelValue(117, "Số chứng từ")}
                           id="MAINCODE"
                           name="MAINCODE"
-                          title={getLabelValue(117, "Số chứng từ")}
+                          style={{ borderColor: "grey" }}
                           value={header?.MAINCODE}
-                        />
-                        {/* Ngay chung tu */}
-                        <FieldEditDatePicker
-                          id="MAINDATE"
-                          name="MAINDATE"
-                          title={getLabelValue(118, "Ngày chứng từ")}
-                          format="dd/MM/yyyy"
-                          defaultValue={new Date(header?.MAINDATE)}
-                          disabled={!permissions}
+                          readonly={true}
                           className={appColors.inputColor}
-                          value={new Date(header?.MAINDATE)}
+                          size="small"
+                        />
+
+                        {/* Ngày lập chứng từ  */}
+                        <FieldEditDatePicker
+                          title={getLabelValue(27, "Ngày tạo")}
+                          value={
+                            header?.MAINDATE
+                              ? new Date(header?.MAINDATE)
+                              : new Date()
+                          }
+                          format={"dd/MM/yyyy"}
+                          disabled={!permissions}
                           onChange={(e) =>
                             setHeader({
                               ...header,
-                              MAINDATE: moment(e.target.value).format(
+                              MAINDATE: moment(new Date(e.value)).format(
                                 "YYYY-MM-DD"
                               ),
                             })
                           }
                         />
                       </div>
-                      {/* Ten nhan vien */}
-                      <FieldEditMaskText
-                        id="EMPLNAME"
-                        name="EMPLNAME"
-                        title={getLabelValue(null, "Tên nhân viên")}
-                        value={userData.EMPLNAME}
-                      />
+
+                      {/* Lý do xin phép */}
+                      <div className="mb-3">
+                        <FieldEditInput
+                          title={getLabelValue(null, "Lý do xin phép")}
+                          id={"MEXLNNTE"}
+                          defaultValue={header?.MEXLNNTE}
+                          onChange={(event) =>
+                            setHeader({ ...header, MEXLNNTE: event.value })
+                          }
+                          value={header?.MEXLNNTE}
+                          disabled={props.mode == "ADD" ? false : !permissions}
+                        />
+                      </div>
+                    </div>
+                    <div className="col-span-full col-start-1 md:col-start-5 md:col-span-4">
+                      {/* Tên nhân viên  */}
+                      <div className="mb-3">
+                        <FieldEditCombobox
+                          title={getLabelValue(null, "Tên nhân viên")}
+                          id={"ITEMNAME"}
+                          data={lstEmployee}
+                          value={
+                            header?.ITEMCODE || header?.EMPLCODE
+                              ? lstEmployee.find(
+                                  (item) =>
+                                    item.ITEMCODE ==
+                                    (header?.EMPLCODE || header?.ITEMCODE)
+                                )
+                              : ""
+                          }
+                          textField="ITEMNAME"
+                          dataItemKey="ITEMCODE"
+                          disabled={true}
+                        />
+                      </div>
+
+                      {/* Chuc danh & Bo phan */}
+                      <div className="grid grid-cols-1 xs:grid-cols-2 gap-2 mb-3">
+                        {/* Chuc danh */}
+                        <FieldEditMaskText
+                          id="JOB_CODE"
+                          name="JOB_CODE"
+                          title={getLabelValue(null, "Chức danh")}
+                          style={{ borderColor: "grey" }}
+                          value={jobName}
+                          defaultValue={jobName}
+                          readonly={true}
+                          className={appColors.inputColor}
+                          size="small"
+                        />
+
+                        {/* Bo phan */}
+                        <FieldEditMaskText
+                          id="DPTMCODE"
+                          name="DPTMCODE"
+                          title={getLabelValue(null, "Bộ phận")}
+                          style={{ borderColor: "grey" }}
+                          value={dptmName}
+                          defaultValue={dptmName}
+                          readonly={true}
+                          className={appColors.inputColor}
+                          size="small"
+                        />
+                      </div>
+                    </div>
+                    <div className="col-span-full col-start-1 md:col-start-9 md:col-span-4">
+                      {/* Tong ngay nghi & Loai ca */}
+                      <div className="grid grid-cols-1 xs:grid-cols-2 gap-2 mb-3">
+                        {/* Tong ngay nghi */}
+                        <FieldEditMaskText
+                          id="SUMLEAV"
+                          name="SUMLEAV"
+                          title={getLabelValue(235, "Tổng ngày nghỉ")}
+                          style={{ borderColor: "grey" }}
+                          value={
+                            header.SUMLEAV != null ? header?.SUMLEAV + "" : ""
+                          }
+                          readonly={true}
+                          className={appColors.inputColor}
+                          size="small"
+                        />
+
+                        {/* Loai ca */}
+                        {/* <FieldEditMaskText
+                          id="SHIFTCODE"
+                          name="SHIFTCODE"
+                          title={getLabelValue(236, "Loại ca")}
+                          style={{ borderColor: "grey" }}
+                          value={shifName}
+                          readonly={true}
+                          className={appColors.inputColor}
+                          size="small"
+                        /> */}
+                      </div>
                     </div>
                   </div>
                 </TabStripTab>

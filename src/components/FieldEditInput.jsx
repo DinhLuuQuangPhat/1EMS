@@ -14,6 +14,7 @@ const FieldEditInput = (fieldRenderProps) => {
     disabled,
     onDoubleClick,
     readOnly,
+    placeholder,
     ...others
   } = fieldRenderProps;
 
@@ -26,6 +27,7 @@ const FieldEditInput = (fieldRenderProps) => {
           id={id}
           value={value}
           defaultValue={defaultValue}
+          placeholder={placeholder}
           onChange={(e) => {
             onChange(e, id);
           }}

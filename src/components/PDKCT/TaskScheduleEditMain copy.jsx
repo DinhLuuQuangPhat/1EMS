@@ -398,7 +398,7 @@ const TaskScheduleEditMain = (props) => {
       const file = e.target.files[i];
       const fileType = file.name
         .split(".")
-      [file.name.split(".").length - 1].toLowerCase();
+        [file.name.split(".").length - 1].toLowerCase();
 
       const icon = getFileIcon(fileType);
       //const icon = ExcelIcon
@@ -504,10 +504,11 @@ const TaskScheduleEditMain = (props) => {
                 className="Tab-flex"
               >
                 <TabStripTab title={"Thông tin chung"}>
-                  <div className="grid gap-2">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                      <div className="grid grid-cols-1 xs:grid-cols-2 gap-2">
-                        {/* So chung tu */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="w-full">
+                      {/* So chung tu & Ngay chung tu */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+                        {/* Số chứng từ */}
                         <FieldEditMaskText
                           id="MAINCODE"
                           name="MAINCODE"
@@ -515,6 +516,7 @@ const TaskScheduleEditMain = (props) => {
                           value={header?.MAINCODE}
                           defaultValue={header?.MAINCODE}
                         />
+
                         {/* Ngay tao */}
                         <FieldEditDatePicker
                           id="MAINDATE"
@@ -526,16 +528,8 @@ const TaskScheduleEditMain = (props) => {
                           disabled={true}
                         />
                       </div>
-                      {/* Ten nhan vien */}
-                      <FieldEditMaskText
-                        id="EMPLNAME"
-                        name="EMPLNAME"
-                        title={getLabelValue(null, "Tên nhân viên")}
-                        value={userData.EMPLNAME}
-                      />
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                      <div className="grid grid-cols-1 xs:grid-cols-2 gap-2">
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
                         {/* Tu ngay */}
                         <FieldEditDatePicker
                           title={getLabelValue(15, "Từ ngày:")}
@@ -573,47 +567,73 @@ const TaskScheduleEditMain = (props) => {
                         />
                       </div>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+
+                    <div className="w-full">
+                      {/* Tong ngay nghi */}
+                      <div className="mb-3">
+                        <FieldEditNumberic
+                          id="WORK_DAY"
+                          name="WORK_DAY"
+                          title={getLabelValue(235, "Tổng ngày nghỉ")}
+                          value={header?.WORK_DAY}
+                          defaultValue={header?.WORK_DAY}
+                          disabled={true}
+                          onChange={(e) =>
+                            setHeader({
+                              ...header,
+                              WORK_DAY: e.target.value,
+                            })
+                          }
+                        />
+                      </div>
+
                       {/* Noi dung cong tac */}
-                      <FieldEditTextArea
-                        id="MCNTNTEXT"
-                        name="MCNTNTEXT"
-                        title={getLabelValue(255, "Nội dung công tác")}
-                        placeholder={getLabelValue(255, "Nội dung công tác")}
-                        row={5}
-                        value={header?.MCNTNTEXT}
-                        defaultValue={header?.MCNTNTEXT}
-                        onChange={(e) =>
-                          setHeader({ ...header, MCNTNTEXT: e.value })
-                        }
-                      />
-                      <FieldEditMultiSelect
-                        title={"Yêu cầu dịch vụ"}
-                        id={"SRVCRQST"}
-                        data={lstSrvcRequest}
-                        defaultValue={
-                          header !== undefined
-                            ? lstSrvcRequest.filter((item) =>
-                              header?.SRVCRQST?.split(",").includes(
-                                item.ITEMCODE
-                              )
-                            )
-                            : []
-                        }
-                        textField="ITEMNAME"
-                        dataItemKey="ITEMCODE"
-                        onChange={(e) => {
-                          var listServiceCode = [];
-                          e.value.map((item) =>
-                            listServiceCode.push(item.ITEMCODE)
-                          );
-                          setHeader({
-                            ...header,
-                            SRVCRQST: listServiceCode.join(),
-                          });
-                        }}
-                        disabled={!permissions}
-                      />
+                      <div className="mb-3">
+                        <FieldEditTextArea
+                          id="MCNTNTEXT"
+                          name="MCNTNTEXT"
+                          title={getLabelValue(255, "Nội dung công tác")}
+                          rows={2}
+                          value={header?.MCNTNTEXT}
+                          defaultValue={header?.MCNTNTEXT}
+                          onChange={(e) =>
+                            setHeader({ ...header, MCNTNTEXT: e.value })
+                          }
+                        />
+                      </div>
+                    </div>
+
+                    <div className="w-full">
+                      {/* Yêu cầu dịch vụ */}
+                      <div className="mb-3">
+                        <FieldEditMultiSelect
+                          title={"Yêu cầu dịch vụ"}
+                          id={"SRVCRQST"}
+                          data={lstSrvcRequest}
+                          defaultValue={
+                            header !== undefined
+                              ? lstSrvcRequest.filter((item) =>
+                                  header?.SRVCRQST?.split(",").includes(
+                                    item.ITEMCODE
+                                  )
+                                )
+                              : []
+                          }
+                          textField="ITEMNAME"
+                          dataItemKey="ITEMCODE"
+                          onChange={(e) => {
+                            var listServiceCode = [];
+                            e.value.map((item) =>
+                              listServiceCode.push(item.ITEMCODE)
+                            );
+                            setHeader({
+                              ...header,
+                              SRVCRQST: listServiceCode.join(),
+                            });
+                          }}
+                          disabled={!permissions}
+                        />
+                      </div>
                     </div>
                   </div>
                 </TabStripTab>
@@ -651,7 +671,7 @@ const TaskScheduleEditMain = (props) => {
                   KKKK0001:
                     header.DETAIL.length > 0
                       ? // ? parseInt(header.DETAIL[header.DETAIL.length - 1]) + 1
-                      parseInt(header.DETAIL.length)
+                        parseInt(header.DETAIL.length)
                       : 1,
                   FRLVDATE: new Date(),
                   TOLVDATE: new Date(),
@@ -675,38 +695,32 @@ const TaskScheduleEditMain = (props) => {
       </div>
 
       {/* Dialog chinh sua Detail */}
-      {
-        openForm && (
-          <EditForm
-            cancelEdit={handleCancelEdit}
-            onSubmit={handleSubmit}
-            item={editItem}
-            DcmnView={DcmnView}
-          />
-        )
-      }
+      {openForm && (
+        <EditForm
+          cancelEdit={handleCancelEdit}
+          onSubmit={handleSubmit}
+          item={editItem}
+          DcmnView={DcmnView}
+        />
+      )}
 
       {/* Thong bao */}
-      {
-        openNotify && (
-          <DialogSystem item={contentNotify} cancelNotify={CancelNotifyHandler} />
-        )
-      }
+      {openNotify && (
+        <DialogSystem item={contentNotify} cancelNotify={CancelNotifyHandler} />
+      )}
 
       {/* Popup xac nhan xoa */}
-      {
-        dialogDelete && (
-          <DialogDelete
-            acptDelete={acptDelete}
-            setAcptDelete={setAcptDelete}
-            dialogDelete={dialogDelete}
-            setDialogDelete={setDialogDelete}
-            onCancelDelete={CancelDeleteHandler}
-            MainCode={header?.MAINCODE}
-          />
-        )
-      }
-    </div >
+      {dialogDelete && (
+        <DialogDelete
+          acptDelete={acptDelete}
+          setAcptDelete={setAcptDelete}
+          dialogDelete={dialogDelete}
+          setDialogDelete={setDialogDelete}
+          onCancelDelete={CancelDeleteHandler}
+          MainCode={header?.MAINCODE}
+        />
+      )}
+    </div>
   );
 };
 
