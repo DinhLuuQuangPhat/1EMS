@@ -742,7 +742,7 @@ const AdvanceProposalEditMain = (props) => {
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     {/* Loai tam ung & Loai doi  tuong */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                       {/* Loai tam ung */}
                       <FieldEditDropdown
                         title={getLabelValue(142, "Loại tạm ứng")}

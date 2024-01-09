@@ -799,8 +799,8 @@ const SpendSuggestEditMain = (props) => {
             >
               <TabStripTab title={getLabelValue(116, "Thông tin chung")}>
                 <div className="grid gap-2">
-                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-2">
-                    <div className="grid lg:col-span-4 xs:grid-cols-2">
+                  <div className="grid grid-cols-1 xl:grid-cols-12 gap-2">
+                    <div className="grid xl:col-span-4 xs:grid-cols-2 gap-2">
                       {/* So chung tu */}
                       <FieldEditMaskText
                         title={getLabelValue(117, "Số chứng từ")}
@@ -826,110 +826,112 @@ const SpendSuggestEditMain = (props) => {
                         }}
                       />
                     </div>
-                    <div className="lg:col-span-5">
-                      <FieldEditDropdown
-                        title={getLabelValue(173, "Chi nhánh")}
-                        id="LCTNCODE"
-                        name="LCTNCODE"
-                        style={{ borderColor: "grey" }}
-                        value={
-                          lstLocation &&
-                            lstLocation.length > 0 &&
-                            header?.LCTNCODE !== "" &&
-                            header?.LCTNCODE !== null
-                            ? lstLocation.find(
-                              (item) => item.ITEMCODE === header?.LCTNCODE
-                            )
-                            : "null"
-                        }
-                        defaultValue={
-                          lstLocation &&
-                            lstLocation.length > 0 &&
-                            header?.LCTNCODE !== "" &&
-                            header?.LCTNCODE !== null
-                            ? lstLocation.find(
-                              (item) => item.ITEMCODE === header?.LCTNCODE
-                            )
-                            : "null"
-                        }
-                        disabled={true}
-                        data={lstLocation}
-                        textField="ITEMNAME"
-                        dataItemKey="ITEMCODE"
-                      />
-                    </div>
-                    <div className="lg:col-span-3">
-                      <FieldEditCombobox
-                        title={getLabelValue(200, "Loại đề nghị")}
-                        id={"DCMNSBCD"}
-                        data={lstDcmn_Sub}
-                        defaultValue={
-                          header !== undefined
-                            ? lstDcmn_Sub.find(
-                              (item) => item.ITEMCODE === header?.DCMNSBCD
-                            )
-                            : {}
-                        }
-                        value={
-                          header !== undefined
-                            ? lstDcmn_Sub.find(
-                              (item) => item.ITEMCODE === header?.DCMNSBCD
-                            )
-                            : {}
-                        }
-                        textField="ITEMNAME"
-                        dataItemKey="ITEMCODE"
-                        onChange={(e) => {
-                          // Xóa ct Đề nghị tam ưng khi khong chon Hoan ung
-                          if (
-                            e.value !== "003" ||
-                            e.value !== "004" ||
-                            e.value !== "005"
-                          ) {
-                            const newRcptCrame = header.RCPTCRAM;
-                            const SgstCram = header.SGSTCRAM;
-                            const newSumCram = SgstCram - newRcptCrame;
+                    <div className="grid xl:col-span-8 xl:grid-cols-3 lg:grid-cols-2 gap-2">
+                      <div className="xl:col-span-2">
+                        <FieldEditDropdown
+                          title={getLabelValue(173, "Chi nhánh")}
+                          id="LCTNCODE"
+                          name="LCTNCODE"
+                          style={{ borderColor: "grey" }}
+                          value={
+                            lstLocation &&
+                              lstLocation.length > 0 &&
+                              header?.LCTNCODE !== "" &&
+                              header?.LCTNCODE !== null
+                              ? lstLocation.find(
+                                (item) => item.ITEMCODE === header?.LCTNCODE
+                              )
+                              : "null"
+                          }
+                          defaultValue={
+                            lstLocation &&
+                              lstLocation.length > 0 &&
+                              header?.LCTNCODE !== "" &&
+                              header?.LCTNCODE !== null
+                              ? lstLocation.find(
+                                (item) => item.ITEMCODE === header?.LCTNCODE
+                              )
+                              : "null"
+                          }
+                          disabled={true}
+                          data={lstLocation}
+                          textField="ITEMNAME"
+                          dataItemKey="ITEMCODE"
+                        />
+                      </div>
+                      <div className="xl:col-span-1">
+                        <FieldEditCombobox
+                          title={getLabelValue(200, "Loại đề nghị")}
+                          id={"DCMNSBCD"}
+                          data={lstDcmn_Sub}
+                          defaultValue={
+                            header !== undefined
+                              ? lstDcmn_Sub.find(
+                                (item) => item.ITEMCODE === header?.DCMNSBCD
+                              )
+                              : {}
+                          }
+                          value={
+                            header !== undefined
+                              ? lstDcmn_Sub.find(
+                                (item) => item.ITEMCODE === header?.DCMNSBCD
+                              )
+                              : {}
+                          }
+                          textField="ITEMNAME"
+                          dataItemKey="ITEMCODE"
+                          onChange={(e) => {
+                            // Xóa ct Đề nghị tam ưng khi khong chon Hoan ung
+                            if (
+                              e.value !== "003" ||
+                              e.value !== "004" ||
+                              e.value !== "005"
+                            ) {
+                              const newRcptCrame = header.RCPTCRAM;
+                              const SgstCram = header.SGSTCRAM;
+                              const newSumCram = SgstCram - newRcptCrame;
 
-                            setHeader({
-                              ...header,
-                              ADVNCODE: "",
-                              ADVNDATE: "1990-01-01",
-                              RCPTCRAM: 0,
-                              DCMNSBCD: e.target.value.ITEMCODE,
-                              OBJCTYPE: parseInt(e.target.value.ITEMATTR),
-                              OBJCCODE: null,
-                              OBJCNAME: "",
-                              SUM_CRAM: newSumCram,
-                            });
-                          } else {
-                            setHeader({
-                              ...header,
-                              DCMNSBCD: e.target.value.ITEMCODE,
-                              OBJCTYPE: parseInt(e.target.value.ITEMATTR),
-                              OBJCCODE: null,
-                              OBJCNAME: "",
-                            });
-                          }
+                              setHeader({
+                                ...header,
+                                ADVNCODE: "",
+                                ADVNDATE: "1990-01-01",
+                                RCPTCRAM: 0,
+                                DCMNSBCD: e.target.value.ITEMCODE,
+                                OBJCTYPE: parseInt(e.target.value.ITEMATTR),
+                                OBJCCODE: null,
+                                OBJCNAME: "",
+                                SUM_CRAM: newSumCram,
+                              });
+                            } else {
+                              setHeader({
+                                ...header,
+                                DCMNSBCD: e.target.value.ITEMCODE,
+                                OBJCTYPE: parseInt(e.target.value.ITEMATTR),
+                                OBJCCODE: null,
+                                OBJCNAME: "",
+                              });
+                            }
 
-                          // Thay doi Danh sach Doi tuong
-                          if (e.target.value.ITEMATTR == 0) {
-                            setListObjectCode(lstEmployee);
-                          }
-                          if (e.target.value.ITEMATTR == 1) {
-                            setListObjectCode(lstSupplier_CurrCode);
-                          }
-                          if (e.target.value.ITEMATTR == 2) {
-                            setListObjectCode(lstCustomer_CurrCode);
-                          }
-                          if (e.target.value.ITEMATTR == 3) {
-                            setListObjectCode(lstCounter);
-                          }
-                          if (e.target.value.ITEMATTR == 4) {
-                            setListObjectCode(lstBankAccount);
-                          }
-                        }}
-                        disabled={!permissions}
-                      />
+                            // Thay doi Danh sach Doi tuong
+                            if (e.target.value.ITEMATTR == 0) {
+                              setListObjectCode(lstEmployee);
+                            }
+                            if (e.target.value.ITEMATTR == 1) {
+                              setListObjectCode(lstSupplier_CurrCode);
+                            }
+                            if (e.target.value.ITEMATTR == 2) {
+                              setListObjectCode(lstCustomer_CurrCode);
+                            }
+                            if (e.target.value.ITEMATTR == 3) {
+                              setListObjectCode(lstCounter);
+                            }
+                            if (e.target.value.ITEMATTR == 4) {
+                              setListObjectCode(lstBankAccount);
+                            }
+                          }}
+                          disabled={!permissions}
+                        />
+                      </div>
                     </div>
                   </div>
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-2 ">
@@ -1072,7 +1074,7 @@ const SpendSuggestEditMain = (props) => {
                       />
                     </div>
                   </div>
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 xl:grid-cols-2 gap-2">
                     <div className="grid grid-cols-1 lg:grid-cols-4 gap-2">
                       <div className="grid grid-cols-1 xs:grid-cols-2 gap-2 lg:col-span-2">
                         {/* Don vi tien te */}
@@ -1178,7 +1180,7 @@ const SpendSuggestEditMain = (props) => {
                       />
                     </div>
                   </div>
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 xl:grid-cols-2 gap-2">
                     {/* Phuong thuc thanh toan */}
                     <FieldEditDropdown
                       title={getLabelValue(37, "Phương thức thanh toán")}

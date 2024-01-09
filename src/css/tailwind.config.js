@@ -55,7 +55,8 @@ module.exports = {
         smd: "768px",
         md: "920px",
         lg: "1025px",
-        xl: "1920px",
+        xl: "1200px",
+        xxl: "1920px",
       },
       borderWidth: {
         1: "1px",
