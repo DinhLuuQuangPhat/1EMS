@@ -826,8 +826,8 @@ const SpendSuggestEditMain = (props) => {
                         }}
                       />
                     </div>
-                    <div className="grid xl:col-span-8 xl:grid-cols-3 lg:grid-cols-2 gap-2">
-                      <div className="xl:col-span-2">
+                    <div className="grid xl:col-span-8 xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 gap-2">
+                      <div className="xl:col-span-2 ">
                         <FieldEditDropdown
                           title={getLabelValue(173, "Chi nhánh")}
                           id="LCTNCODE"
