@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { TabStrip, TabStripTab } from "@progress/kendo-react-layout";
+import { Label } from "@progress/kendo-react-labels";
+import { Checkbox } from "@progress/kendo-react-inputs";
 import { useStateContext } from "../../context/ContextProvider";
 import EditForm from "./EditForm";
 import { v4 } from "uuid";
@@ -43,6 +45,7 @@ import {
   FieldEditTextArea,
   FieldEditMaskText,
   DialogDelete,
+  FieldEditCheckBox,
 } from "../";
 import BusinessRegistrationEditGrid from "./TaskScheduleEditGrid";
 
@@ -448,7 +451,6 @@ const TaskScheduleEditMain = (props) => {
     );
     DcmnView = dcmnFind != undefined ? dcmnFind.GRP_VIEW : [];
   }
-
   return (
     <div>
       <div id="general" className="p-2">
@@ -587,8 +589,22 @@ const TaskScheduleEditMain = (props) => {
                           setHeader({ ...header, MCNTNTEXT: e.value })
                         }
                       />
+                      <>
+                        <Label className="text-sm text-gray-500">Yêu cầu dịch vụ</Label>
+                        {
+                          lstSrvcRequest.map((item) => {
+                            <Checkbox
+                              name={"SRVCRQST"}
+                              id={"SRVCRQST"}
+                              size="small"
+                              label={item.ITEMNAME}
+                              value={item.ITEMCODE}
+                            />
+                          })
+                        }
+                      </>
                       <FieldEditMultiSelect
-                        title={"Yêu cầu dịch vụ"}
+
                         id={"SRVCRQST"}
                         data={lstSrvcRequest}
                         defaultValue={

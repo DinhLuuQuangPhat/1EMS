@@ -563,7 +563,7 @@ const ServiceContactEditMain = (props) => {
                         value={userData.EMPLNAME}
                       />
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       {/* Danh sach nguoi nhan */}
                       <FieldEditMultiSelect
                         title={"Danh sách người nhận"}
@@ -677,7 +677,7 @@ const ServiceContactEditMain = (props) => {
                         }}
                       />
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       {/* Thoi gian hoan thanh */}
                       <FieldEditDatePicker
                         id="MAINDATE"
@@ -706,7 +706,7 @@ const ServiceContactEditMain = (props) => {
                     {/* File dinh kem */}
                     <div>
                       <div className="file-attach">
-                        <div className="mb-3">
+                        <div className="mb-1">
                           <p className="w-full">
                             {getLabelValue(57, "File đính kèm")}
                           </p>
@@ -730,7 +730,7 @@ const ServiceContactEditMain = (props) => {
                             </div>
                           </div>
                         </div>
-                        <div>
+                        <div className="w-full border border-gray-300 k-rounded-md h-20">
                           <div className="fileattachment">
                             {files &&
                               files.length > 0 &&

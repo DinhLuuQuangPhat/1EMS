@@ -3,6 +3,7 @@ export { default as FieldEditCombobox } from "./FieldEditCombobox";
 export { default as FieldEditMultiSelect } from "./FieldEditMultiSelect";
 export { default as FieldEditComboboxSearch } from "./FieldEditComboboxSearch";
 export { default as FieldEditDropdown } from "./FieldEditDropdown";
+export { default as FieldEditCheckBox } from "./FieldEditCheckBox";
 export { default as FieldEditNumberic } from "./FieldEditNumberic";
 export { default as FieldEditInput } from "./FieldEditInput";
 export { default as FieldEditMaskText } from "./FieldEditMaskText";

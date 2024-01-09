@@ -742,7 +742,7 @@ const AdvanceProposalEditMain = (props) => {
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     {/* Loai tam ung & Loai doi  tuong */}
-                    <div className="grid grid-cols-1 xs:grid-cols-2 gap-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       {/* Loai tam ung */}
                       <FieldEditDropdown
                         title={getLabelValue(142, "Loại tạm ứng")}
@@ -820,95 +820,98 @@ const AdvanceProposalEditMain = (props) => {
                       disabled={!permissions || loadingAccObjcList}
                     />
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 md:grid-cols-6 gap-2">
+                    <div className="grid grid-cols-1 md:col-span-2 gap-2">
                       {/* Don vi tien te & Ty gia */}
-                      <div className="grid grid-cols-1 xs:grid-cols-3 gap-2">
+                      <div className="grid xs:grid-cols-2 gap-2">
                         {/* Don vi tien te */}
-                        <div className="xs:col-span-2">
-                          <FieldEditDropdown
-                            title={getLabelValue(87, "ĐV Tiền tệ")}
-                            id={"CUOMCODE"}
-                            data={lstCUOM}
-                            value={
-                              header !== undefined
-                                ? lstCUOM.find(
-                                  (item) => item.ITEMCODE === header.CUOMCODE
-                                )
-                                : {}
-                            }
-                            style={{ width: "100%" }}
-                            textField="ITEMNAME"
-                            dataItemKey="ITEMCODE"
-                            onChange={(event) =>
-                              setHeader({
-                                ...header,
-                                CUOMCODE: event.value.ITEMCODE,
-                              })
-                            }
-                            disabled={!permissions}
-                          />
-                        </div>
+                        <FieldEditDropdown
+                          title={getLabelValue(87, "ĐV Tiền tệ")}
+                          id={"CUOMCODE"}
+                          data={lstCUOM}
+                          value={
+                            header !== undefined
+                              ? lstCUOM.find(
+                                (item) => item.ITEMCODE === header.CUOMCODE
+                              )
+                              : {}
+                          }
+                          style={{ width: "100%" }}
+                          textField="ITEMNAME"
+                          dataItemKey="ITEMCODE"
+                          onChange={(event) =>
+                            setHeader({
+                              ...header,
+                              CUOMCODE: event.value.ITEMCODE,
+                            })
+                          }
+                          disabled={!permissions}
+                        />
                         {/* Ty gia */}
-                        <div className="xs:col-span-1" >
-                          <FieldEditNumberic
-                            title={getLabelValue(88, "Tỷ giá")}
-                            id={"CUOMRATE"}
-                            value={header.CUOMRATE ? header.CUOMRATE : 1}
-                            onChange={(event) =>
-                              setHeader({
-                                ...header,
-                                CUOMRATE: event.value,
-                              })
-                            }
-                            // format="n4"
-                            disabled={!permissions}
-                          />
-                        </div>
+                        <FieldEditNumberic
+                          title={getLabelValue(88, "Tỷ giá")}
+                          id={"CUOMRATE"}
+                          value={header.CUOMRATE ? header.CUOMRATE : 1}
+                          onChange={(event) =>
+                            setHeader({
+                              ...header,
+                              CUOMRATE: event.value,
+                            })
+                          }
+                          // format="n4"
+                          disabled={!permissions}
+                        />
                       </div>
-                      {/* Tien tam ung */}
-                      <FieldEditNumberic
-                        title={getLabelValue(146, "Tiền tạm ứng")}
-                        id={"ADVNCRAM"}
-                        value={header.ADVNCRAM ? header.ADVNCRAM : 0}
-                        onChange={(event) =>
-                          setHeader({
-                            ...header,
-                            ADVNCRAM: event.value,
-                          })
-                        }
-                        // format="n4"
-                        disabled={!permissions}
-                      />
                     </div>
-                    <div className="grid grid-cols-1 xs:grid-cols-3 gap-2">
-                      {/* So tien duoc duyet */}
-                      <FieldEditNumberic
-                        title={getLabelValue(null, "Số tiền được duyệt")}
-                        id={"RCPTCRAM"}
-                        value={header.RCPTCRAM ? header.RCPTCRAM : 0}
-                        // format="n4"
-                        disabled={true}
-                      />
-                      {/* So tien duoc nhan */}
-                      <FieldEditNumberic
-                        title={getLabelValue(null, "Số tiền được nhận")}
-                        id={"RCPTCRAM"}
-                        value={header.RCPTCRAM ? header.RCPTCRAM : 0}
-                        // format="n4"
-                        disabled={true}
-                      />
-                      {/* So tien hoan ung */}
-                      <FieldEditNumberic
-                        title={getLabelValue(null, "Số tiền hoàn ứng")}
-                        id={"RCPTCRAM"}
-                        value={header.RCPTCRAM ? header.RCPTCRAM : 0}
-                        // format="n4"
-                        disabled={true}
-                      />
+                    <div className="grid grid-cols-1 md:col-span-2 gap-2">
+                      <div className="grid xs:grid-cols-2 gap-2">
+                        {/* Tien tam ung */}
+                        <FieldEditNumberic
+                          title={getLabelValue(146, "Tiền tạm ứng")}
+                          id={"ADVNCRAM"}
+                          value={header.ADVNCRAM ? header.ADVNCRAM : 0}
+                          onChange={(event) =>
+                            setHeader({
+                              ...header,
+                              ADVNCRAM: event.value,
+                            })
+                          }
+                          // format="n4"
+                          disabled={!permissions}
+                        />
+                        {/* So tien duoc duyet */}
+                        <FieldEditNumberic
+                          title={getLabelValue(null, "Số tiền được duyệt")}
+                          id={"RCPTCRAM"}
+                          value={header.RCPTCRAM ? header.RCPTCRAM : 0}
+                          // format="n4"
+                          disabled={true}
+                        />
+                      </div>
                     </div>
+                    <div className="grid grid-cols-1 md:col-span-2 gap-2">
+                      <div className="grid xs:grid-cols-2 gap-2">
+                        {/* So tien duoc nhan */}
+                        <FieldEditNumberic
+                          title={getLabelValue(null, "Số tiền được nhận")}
+                          id={"RCPTCRAM"}
+                          value={header.RCPTCRAM ? header.RCPTCRAM : 0}
+                          // format="n4"
+                          disabled={true}
+                        />
+                        {/* So tien hoan ung */}
+                        <FieldEditNumberic
+                          title={getLabelValue(null, "Số tiền hoàn ứng")}
+                          id={"RCPTCRAM"}
+                          value={header.RCPTCRAM ? header.RCPTCRAM : 0}
+                          // format="n4"
+                          disabled={true}
+                        />
+                      </div>
+                    </div>
+
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {/* Bo phan */}
                     <FieldEditMaskText
                       title={getLabelValue(150, "Bộ phận")}
@@ -963,10 +966,24 @@ const AdvanceProposalEditMain = (props) => {
                       }
                       disabled={!permissions}
                     />
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    <FieldEditTextArea
+                      title={getLabelValue(199, "Lý do đề nghị")}
+                      placeholder={getLabelValue(199, "Lý do đề nghị")}
+                      id={"MEXLNNTE"}
+                      row={5}
+                      value={header?.MEXLNNTE}
+                      defaultValue={header?.MEXLNNTE}
+                      onChange={(e) => {
+                        setHeader({ ...header, MEXLNNTE: e.value });
+                      }}
+                      disabled={!permissions}
+                    />
                     {/* File dinh kem */}
                     <div>
                       <div className="file-attach">
-                        <div className="mb-3">
+                        <div className="mb-1">
                           <p className="w-full">
                             {getLabelValue(57, "File đính kèm")}
                           </p>
@@ -990,7 +1007,7 @@ const AdvanceProposalEditMain = (props) => {
                             </div>
                           </div>
                         </div>
-                        <div>
+                        <div className="w-full border border-gray-300 k-rounded-md h-20">
                           <div className="fileattachment">
                             {files &&
                               files.length > 0 &&
@@ -1006,20 +1023,6 @@ const AdvanceProposalEditMain = (props) => {
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2 h-full">
-                    <FieldEditTextArea
-                      placeholder={getLabelValue(199, "Lý do đề nghị")}
-                      id={"MEXLNNTE"}
-                      row={5}
-                      value={header?.MEXLNNTE}
-                      defaultValue={header?.MEXLNNTE}
-                      onChange={(e) => {
-                        setHeader({ ...header, MEXLNNTE: e.value });
-                      }}
-                      disabled={!permissions}
-                    />
-                    <div className="h-full w-full border border-gray-300 k-rounded-md"></div>
                   </div>
                 </div>
               </TabStripTab>
