@@ -580,9 +580,9 @@ const TaskScheduleEditMain = (props) => {
                       <FieldEditTextArea
                         id="MCNTNTEXT"
                         name="MCNTNTEXT"
+                        row={8}
                         title={getLabelValue(255, "Nội dung công tác")}
                         placeholder={getLabelValue(255, "Nội dung công tác")}
-                        row={5}
                         value={header?.MCNTNTEXT}
                         defaultValue={header?.MCNTNTEXT}
                         onChange={(e) =>
@@ -591,33 +591,35 @@ const TaskScheduleEditMain = (props) => {
                       />
                       <div className="grid">
                         <Label className="text-sm text-gray-500">Yêu cầu dịch vụ</Label>
-                        {console.log(header.SRVCRQST)}
-                        {lstSrvcRequest.map((item) => {
-                          return (
-                            <span>
-                              <input type="checkbox"
-                                className="k-checkbox k-checkbox-sm k-rounded-md"
-                                value={item.ITEMCODE}
-                                onChange={(e) => {
-                                  const { value, checked } = e.target;
-                                  if (checked) {
-                                    setHeader((prevHeader) => ({
-                                      ...prevHeader,
-                                      SRVCRQST: [...prevHeader.SRVCRQST, value]
-                                    }));
-                                  } else {
-                                    setHeader((prevHeader) => ({
-                                      ...prevHeader,
-                                      SRVCRQST: prevHeader.SRVCRQST.filter((item) => item !== value)
-                                    }));
-                                  }
-                                }}
-                              />
-                              <label className="k-checkbox-label">{item.ITEMNAME}</label>
-                            </span>
-                          );
-                        })
-                        }
+                        {lstSrvcRequest && Array.isArray(lstSrvcRequest) ? (
+                          lstSrvcRequest.map((item) => {
+                            return (
+                              <span>
+                                <input type="checkbox"
+                                  className="k-checkbox k-checkbox-sm k-rounded-md"
+                                  value={item.ITEMCODE}
+                                  onChange={(e) => {
+                                    const { value, checked } = e.target;
+                                    if (checked) {
+                                      setHeader((prevHeader) => ({
+                                        ...prevHeader,
+                                        SRVCRQST: [...prevHeader.SRVCRQST, value]
+                                      }));
+                                    } else {
+                                      setHeader((prevHeader) => ({
+                                        ...prevHeader,
+                                        SRVCRQST: prevHeader.SRVCRQST.filter((item) => item !== value)
+                                      }));
+                                    }
+                                  }}
+                                />
+                                <label className="k-checkbox-label">{item.ITEMNAME}</label>
+                              </span>
+                            );
+                          })
+                        ) : ("Không có dữ liệu"
+                        )}
+
                       </div>
                     </div>
                   </div>
