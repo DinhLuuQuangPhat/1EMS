@@ -589,47 +589,36 @@ const TaskScheduleEditMain = (props) => {
                           setHeader({ ...header, MCNTNTEXT: e.value })
                         }
                       />
-                      <>
+                      <div className="grid">
                         <Label className="text-sm text-gray-500">Yêu cầu dịch vụ</Label>
-                        {
-                          lstSrvcRequest.map((item) => {
-                            <Checkbox
-                              name={"SRVCRQST"}
-                              id={"SRVCRQST"}
-                              size="small"
-                              label={item.ITEMNAME}
-                              value={item.ITEMCODE}
-                            />
-                          })
-                        }
-                      </>
-                      <FieldEditMultiSelect
-
-                        id={"SRVCRQST"}
-                        data={lstSrvcRequest}
-                        defaultValue={
-                          header !== undefined
-                            ? lstSrvcRequest.filter((item) =>
-                              header?.SRVCRQST?.split(",").includes(
-                                item.ITEMCODE
-                              )
-                            )
-                            : []
-                        }
-                        textField="ITEMNAME"
-                        dataItemKey="ITEMCODE"
-                        onChange={(e) => {
-                          var listServiceCode = [];
-                          e.value.map((item) =>
-                            listServiceCode.push(item.ITEMCODE)
+                        {console.log(header.SRVCRQST)}
+                        {lstSrvcRequest.map((item) => {
+                          return (
+                            <span>
+                              <input type="checkbox"
+                                className="k-checkbox k-checkbox-sm k-rounded-md"
+                                value={item.ITEMCODE}
+                                onChange={(e) => {
+                                  const { value, checked } = e.target;
+                                  if (checked) {
+                                    setHeader((prevHeader) => ({
+                                      ...prevHeader,
+                                      SRVCRQST: [...prevHeader.SRVCRQST, value]
+                                    }));
+                                  } else {
+                                    setHeader((prevHeader) => ({
+                                      ...prevHeader,
+                                      SRVCRQST: prevHeader.SRVCRQST.filter((item) => item !== value)
+                                    }));
+                                  }
+                                }}
+                              />
+                              <label className="k-checkbox-label">{item.ITEMNAME}</label>
+                            </span>
                           );
-                          setHeader({
-                            ...header,
-                            SRVCRQST: listServiceCode.join(),
-                          });
-                        }}
-                        disabled={!permissions}
-                      />
+                        })
+                        }
+                      </div>
                     </div>
                   </div>
                 </TabStripTab>
