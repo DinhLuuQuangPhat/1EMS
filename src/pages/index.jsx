@@ -36,6 +36,24 @@ export { default as AprvDcmnEdit } from "./AprvDcmn/AprvDcmnEdit";
 
 export { default as DcmnSrch } from "./DcmnSrch/DcmnSrch";
 
+export { default as WorkOderList } from "./WorkOder/WorkOderList";
+export { default as WorkOderEdit } from "./WorkOder/WorkOderEdit";
+
+export { default as WorkPrcsList } from "./WorkPrcs/WorkPrcsList";
+export { default as WorkPrcsEdit } from "./WorkPrcs/WorkPrcsEdit";
+
+export { default as WorkTypeList } from "./WorkType/WorkTypeList";
+export { default as WorkTypeEdit } from "./WorkType/WorkTypeEdit";
+
+export { default as WorkGrpList } from "./WorkGrp/WorkGrpList";
+export { default as WorkGrpEdit } from "./WorkGrp/WorkGrpEdit";
+
+export { default as BKSList } from "./BKS/BKSList";
+export { default as BKSEdit } from "./BKS/BKSEdit";
+
+export { default as DSCHList } from "./DSCH/DSCHList";
+export { default as DSCHEdit } from "./DSCH/DSCHEdit";
+
 export { default as Layout } from "./Layout";
 export { default as Dashboard } from "./Dashboard/Dashboard";
 export { default as DashboardDrag } from "./DashboardDraggable/DashboardDrag";

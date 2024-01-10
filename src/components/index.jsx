@@ -103,3 +103,21 @@ export { default as DialogTree } from "./Content/DialogTree";
 export { default as DialogSystem } from "./Content/DialogSystem";
 export { default as CommandGridList } from "./Content/CommandGridList";
 export { default as DialogDelete } from "./Content/DialogDelete";
+
+export { default as WorkOderListMain } from "./WorkOder/WorkOderListMain"; // Thu Tu Cong Viec
+export { default as WorkOderEditMain } from "./WorkOder/WorkOderEditMain";
+
+export { default as WorkPrcsListMain } from "./WorkPrcs/WorkPrcsListMain"; // Tinh Chat Cong Viec
+export { default as WorkPrcsEditMain } from "./WorkPrcs/WorkPrcsEditMain";
+
+export { default as WorkTypeListMain } from "./WorkType/WorkTypeListMain"; // Loai Hinh Cong Viec
+export { default as WorkTypeEditMain } from "./WorkType/WorkTypeEditMain";
+
+export { default as WorkGrpListMain } from "./WorkGrp/WorkGrpListMain"; // Nhom Cong Viec
+export { default as WorkGrpEditMain } from "./WorkGrp/WorkGrpEditMain";
+
+export { default as BKSListMain } from "./BKS/BKSListMain"; // Bang Khao Sat
+export { default as BKSEditMain } from "./BKS/BKSEditMain";
+
+export { default as DSCHListMain } from "./DSCH/DSCHListMain"; // Danh Sach Cau Hoi
+export { default as DSCHEditMain } from "./DSCH/DSCHEditMain";

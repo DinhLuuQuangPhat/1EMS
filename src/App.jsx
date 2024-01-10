@@ -29,6 +29,20 @@ import {
   AprvInvcEdit,
   AprvDcmnList, // Danh sach ct Phe duyet
   AprvDcmnEdit, // Phe duyet ct
+
+  WorkOderList, // Thu tu cong viec
+  WorkOderEdit,
+  WorkPrcsList, // Tinh chat cong viec
+  WorkPrcsEdit,
+  WorkTypeList, // Loai hinh cong viec
+  WorkTypeEdit,
+  WorkGrpList, // Nhom cong viec
+  WorkGrpEdit,
+  BKSList, // Bang khao sat
+  BKSEdit,
+  DSCHList, // Danh sach cau hoi
+  DSCHEdit,
+
   Dashboard, // Man hinh CHART BI
   DashboardDrag,
   DashboardDM1,
@@ -208,6 +222,72 @@ function App() {
                   element={<RetailBillEdit mode={"EDIT"} />}
                 />
 
+                {/* Phat Lam */}
+                {/*  Thứ tự công việc */}
+                <Route path="/work-oder" element={<WorkOderList />} />
+                <Route
+                  path="/work-oder/new"
+                  element={<WorkOderEdit mode={"ADD"} />}
+                />
+                <Route
+                  path="/work-oder/:id"
+                  element={<WorkOderEdit mode={"EDIT"} />}
+                />
+
+                {/*  Tính chất công việc */}
+                <Route path="/work-prcs" element={<WorkPrcsList />} />
+                <Route
+                  path="/work-prcs/new"
+                  element={<WorkPrcsEdit mode={"ADD"} />}
+                />
+                <Route
+                  path="/work-prcs/:id"
+                  element={<WorkPrcsEdit mode={"EDIT"} />}
+                />
+
+                {/*  Loại hình công việc */}
+                <Route path="/work-type" element={<WorkTypeList />} />
+                <Route
+                  path="/work-type/new"
+                  element={<WorkTypeEdit mode={"ADD"} />}
+                />
+                <Route
+                  path="/work-type/:id"
+                  element={<WorkTypeEdit mode={"EDIT"} />}
+                />
+
+                {/*  Nhóm công việc */}
+                <Route path="/work-group" element={<WorkGrpList />} />
+                <Route
+                  path="/work-group/new"
+                  element={<WorkGrpEdit mode={"ADD"} />}
+                />
+                <Route
+                  path="/work-group/:id"
+                  element={<WorkGrpEdit mode={"EDIT"} />}
+                />
+
+                {/*  Bảng khảo sát */}
+                <Route path="/list-content" element={<BKSList />} />
+                <Route
+                  path="/list-content/new"
+                  element={<BKSEdit mode={"ADD"} />}
+                />
+                <Route
+                  path="/list-content/:id"
+                  element={<BKSEdit mode={"EDIT"} />}
+                />
+
+                {/*  Danh Sách Câu Hỏi  */}
+                <Route path="/list-question" element={<DSCHList />} />
+                <Route
+                  path="/list-question/new"
+                  element={<DSCHEdit mode={"ADD"} />}
+                />
+                <Route
+                  path="/list-question/:id"
+                  element={<DSCHEdit mode={"EDIT"} />}
+                />
                 {/* <Route path={routers.index} element={<EntryPage />} />
                 <Route
                   path={routers.document.create_template}

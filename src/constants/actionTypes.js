@@ -211,3 +211,58 @@ export const FETCH_SetDashboard = "FETCH_SetDashboard"; // Set dashboard Default
 export const FETCH_lstDashboard = "FETCH_lstDashboard"; // danh sach Dashboard
 export const FETCH_DETAIL_Dashboard = "FETCH_DETAIL_Dashboard"; // Chi tiet Dashboard
 export const FETCH_lstElemType = "FETCH_lstElemType"; // Loai Chart Type
+
+
+// Thu tu cong viec
+export const FETCH_ALL_TTCVI = "FETCH_ALL_TTCVI";
+export const FETCH_DETAIL_TTCVI = "FETCH_DETAIL_TTCVI";
+export const DELETE_TTCVI = "DELETE_TTCVI";
+export const POST_TTCVI = "POST_TTCVI";
+export const UPDATE_TTCVI = "UPDATE_TTCVI";
+export const LOCK_TTCVI = "LOCK_TTCVI";
+export const RESET_TTCVI = "RESET_TTCVI";
+
+// Tinh chat cong viec
+export const FETCH_ALL_TCCVI = "FETCH_ALL_TCCVI";
+export const FETCH_DETAIL_TCCVI = "FETCH_DETAIL_TCCVI";
+export const DELETE_TCCVI = "DELETE_TCCVI";
+export const POST_TCCVI = "POST_TCCVI";
+export const UPDATE_TCCVI = "UPDATE_TCCVI";
+export const LOCK_TCCVI = "LOCK_TCCVI";
+export const RESET_TCCVI = "RESET_TCCVI";
+
+// Loai hinh cong viec
+export const FETCH_ALL_LHCVI = "FETCH_ALL_LHCVI";
+export const FETCH_DETAIL_LHCVI = "FETCH_DETAIL_LHCVI";
+export const DELETE_LHCVI = "DELETE_LHCVI";
+export const POST_LHCVI = "POST_LHCVI";
+export const UPDATE_LHCVI = "UPDATE_LHCVI";
+export const LOCK_LHCVI = "LOCK_LHCVI";
+export const RESET_LHCVI = "RESET_LHCVI";
+
+// Loai hinh cong viec
+export const FETCH_ALL_NCVI = "FETCH_ALL_NCVI";
+export const FETCH_DETAIL_NCVI = "FETCH_DETAIL_NCVI";
+export const DELETE_NCVI = "DELETE_NCVI";
+export const POST_NCVI = "POST_NCVI";
+export const UPDATE_NCVI = "UPDATE_NCVI";
+export const LOCK_NCVI = "LOCK_NCVI";
+export const RESET_NCVI = "RESET_NCVI";
+
+// Bang khao sat
+export const FETCH_ALL_BKS = "FETCH_ALL_BKS";
+export const FETCH_DETAIL_BKS = "FETCH_DETAIL_BKS";
+export const DELETE_BKS = "DELETE_BKS";
+export const POST_BKS = "POST_BKS";
+export const UPDATE_BKS = "UPDATE_BKS";
+export const LOCK_BKS = "LOCK_BKS";
+export const RESET_BKS = "RESET_BKS";
+
+// Danh sach cau hoi
+export const FETCH_ALL_DSCH = "FETCH_ALL_DSCH";
+export const FETCH_DETAIL_DSCH = "FETCH_DETAIL_DSCH";
+export const DELETE_DSCH = "DELETE_DSCH";
+export const POST_DSCH = "POST_DSCH";
+export const UPDATE_DSCH = "UPDATE_DSCH";
+export const LOCK_DSCH = "LOCK_DSCH";
+export const RESET_DSCH = "RESET_DSCH";
