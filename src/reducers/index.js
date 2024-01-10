@@ -14,6 +14,12 @@ import aprvtemp from "./aprvtemp";
 import aprvinvc from "./aprvinvc";
 import Account from "./account";
 import Chart from "./chart";
+import TTCVI from "./ttcvi";
+import TCCVI from "./tccvi";
+import LHCVI from "./lhcvi";
+import NCVI from "./ncvi";
+import BKS from "./bks";
+import DSCH from "./dsch";
 
 export const reducers = combineReducers({
   ddhkh,
@@ -31,4 +37,10 @@ export const reducers = combineReducers({
   aprvinvc,
   Account,
   Chart,
+  TTCVI,
+  TCCVI,
+  LHCVI,
+  NCVI,
+  BKS,
+  DSCH,
 });
